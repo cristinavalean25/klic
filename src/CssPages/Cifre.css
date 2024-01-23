@@ -1,0 +1,136 @@
+.cifre-container {
+  width: 100%;
+  height: 300px;
+  background-color: #13203c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+}
+
+.cifre-second-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+}
+
+.cifre-left {
+  width: 28%;
+  display: flex;
+  align-items: top;
+  margin-right: 15%;
+  justify-content: center;
+  margin-left: 5%;
+  position: static;
+}
+
+.line-cifre {
+  width: 72px;
+  height: 1px;
+  background-color: #fff;
+  margin-right: 10px;
+  margin-top: 15px;
+}
+
+.cifre-text {
+  font-size: 20px;
+  letter-spacing: 1.2px;
+  line-height: 20px;
+  color: #fff;
+  font-weight: 500;
+  margin-right: 5%;
+  text-transform: uppercase;
+}
+
+.cifre-right {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  margin-right: 5%;
+}
+
+.cifre-details {
+  color: #fff;
+  text-transform: uppercase;
+  margin-right: 10px;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.cifre-title-det {
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  line-height: 38px;
+}
+
+.cifre-text-det {
+  color: #91a0c1;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 20px;
+  margin-top: 17px;
+}
+
+.zecimal-number {
+  color: #fff;
+  background-color: #13203c;
+  border: none;
+  width: 200px;
+  text-align: left;
+}
+
+.zecimal-number:focus {
+  outline: none;
+  border: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .cifre-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+  }
+  .cifre-second-container {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4%;
+  }
+
+  .cifre-right {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .cifre-details {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .cifre-left {
+    width: 100%;
+    height: auto;
+    padding-bottom: 5%;
+  }
+
+  .line-cifre {
+    width: 50px;
+    height: 1px;
+    background-color: #fff;
+    margin-top: 15px;
+  }
+}

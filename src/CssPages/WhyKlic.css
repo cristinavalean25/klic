@@ -1,0 +1,175 @@
+.white-container {
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+}
+
+.why-klic-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-section {
+  width: 70%;
+  position: relative;
+}
+
+.overlay-text-why {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.top-section {
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  padding: 10px;
+  color: #fff;
+  margin-top: -2%;
+}
+
+.about-us,
+.our-team {
+  width: 48%;
+  cursor: pointer;
+  display: flex;
+  background-color: #233e5f;
+  align-items: center;
+  justify-content: center;
+  padding: 3%;
+  margin-top: 0px;
+  text-transform: uppercase;
+}
+
+.arrow {
+  margin-left: 15px;
+  font-size: 24px;
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.right-section {
+  width: 30%;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.carousel-det {
+  width: 100%;
+  height: auto;
+  bottom: 0px;
+}
+
+.carousel-text-h2 {
+  left: 20px;
+  bottom: 250px;
+  position: absolute;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  line-height: 38px;
+  text-align: left;
+  color: #233356;
+  text-transform: uppercase;
+}
+
+.carousel-text-h3 {
+  left: 20px;
+  bottom: 200px;
+  position: absolute;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  line-height: 38px;
+  color: #233356;
+}
+
+.carousel-text {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  line-height: 22px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #525f7a;
+  text-transform: uppercase;
+}
+
+@media only screen and (max-width: 768px) {
+  .why-klic-container {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .left-section {
+    width: 100%;
+    height: auto;
+  }
+
+  .top-section {
+    width: 100%;
+    height: auto;
+    margin-top: -8%;
+  }
+
+  .right-section {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .carousel-text-h2 {
+    left: 20px;
+    top: 10px;
+    position: absolute;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1.2px;
+    line-height: 38px;
+    text-align: left;
+    color: #233356;
+    text-transform: uppercase;
+  }
+
+  .carousel-text-h3 {
+    left: 20px;
+    top: 50px;
+    position: absolute;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1.6px;
+    line-height: 38px;
+    color: #233356;
+  }
+
+  .carousel-text {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    line-height: 22px;
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    color: #525f7a;
+    text-transform: uppercase;
+  }
+}
