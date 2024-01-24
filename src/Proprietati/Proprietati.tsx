@@ -29,7 +29,6 @@ export default function Proprietati() {
           headers: {
             Authorization: token,
             "X-Requested-With": "XMLHttpRequest",
-            // Origin: "http://localhost:5173",
           },
         });
 
