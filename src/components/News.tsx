@@ -55,8 +55,8 @@ function News() {
           <div className="second-details-new">
             <div className="second-det-title">
               <h2>
-                Descoperiti experienta serviciului de top <br /> oferit de
-                <span>klic imobiliare</span>
+                Descoperiti experienta serviciului de top <br /> oferit de klic
+                imobiliare
               </h2>
             </div>
             <div className="second-details-title">
@@ -65,6 +65,7 @@ function News() {
                 misiune sa va ajute sa va atingeti obiectivele imobiliare,
                 facilitand realizarea viselor dumneavoastra de viata.
               </h6>
+
               <div className="news-bottom-container">
                 <div className="btn-news">
                   <h5>Incepeti cautarea </h5>
