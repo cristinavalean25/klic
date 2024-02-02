@@ -5,11 +5,13 @@ import imgAp from "../Images/apartamente-img.png";
 import imgComercial from "../Images/comercial-img.png";
 import imgInchirieri from "../Images/inchirieri-img.jpg";
 import imgZone from "../Images/zone.png";
+import { Link } from "react-router-dom";
 
 function Proprieties() {
   const { proprietati } = detalii;
   const images = [
     {
+      link: "/Apartamente",
       imgSrc: imgCasa,
       textTitle: "REZIDENTIALE",
       textCase: "CASE - APARTAMENTE",
@@ -18,6 +20,7 @@ function Proprieties() {
       textVacantion: "",
     },
     {
+      link: "/",
       imgSrc: imgAp,
       textTitle: "ANSAMBLE NOI",
       textCase: "CASE - VILE",
@@ -26,6 +29,7 @@ function Proprieties() {
       textVacantion: "",
     },
     {
+      link: "/",
       imgSrc: imgComercial,
       textTitle: "COMERCIALE",
       textCase: "SPATII - BIROURI - HALE ",
@@ -34,6 +38,7 @@ function Proprieties() {
       textVacantion: "",
     },
     {
+      link: "/",
       imgSrc: imgInchirieri,
       textTitle: "INCHIRIEIRI",
       textCase: "REXIDENTIALE - COMERCIALE ",
@@ -42,6 +47,7 @@ function Proprieties() {
       textVacantion: "",
     },
     {
+      link: "/",
       imgSrc: imgZone,
       textTitle: "ZONE",
       textCase: "CARTIERE SIBIU",
@@ -66,16 +72,18 @@ function Proprieties() {
           <div className="proprieties-text">Proprietăți</div>
         </div>
 
-        <div>
+        <div style={{ width: "fit-content" }}>
           <div className="gallery-right" id="galleryContainer">
             {images.map((proprietate, index) => (
-              <div className="image-container" key={index}>
-                <img src={proprietate.imgSrc} alt="" />
-                <div className="image-text">
-                  <p className="title-prop">{proprietate.textTitle}</p>
-                  <p className="title-prop">{proprietate.textCase}</p>
+              <Link to={proprietate.link} key={index}>
+                <div className="image-container-prop" key={index}>
+                  <img src={proprietate.imgSrc} alt="" />
+                  <div className="image-text">
+                    <p className="title-prop">{proprietate.textTitle}</p>
+                    <p className="title-prop">{proprietate.textCase}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

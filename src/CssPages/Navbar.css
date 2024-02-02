@@ -1,0 +1,40 @@
+.fixed-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 16%;
+  padding-right: 16%;
+  width: 100%;
+  z-index: 2000;
+  background-color: #13203c;
+}
+
+.logo {
+  max-width: 230px;
+  max-width: 160px;
+}
+
+.dropdown-item {
+  color: #ffffff;
+}
+
+.dropdown-menu {
+  border-radius: 0;
+}
+
+.custom-dropdown .nav-link {
+  color: #ffffff;
+}
+
+.custom-dropdown-menu {
+  border-radius: 0;
+}
+
+.navbar-nav > li {
+  margin-right: 5%;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+}
