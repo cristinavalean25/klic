@@ -8,6 +8,7 @@ import News from "./components/News";
 import Footer from "./components/Footer";
 import Apartamente from "./Rezidential/Apartamente";
 import Navbar from "./components/Navbar";
+import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/News" element={<News />} />
         <Route path="/Footer" element={<Footer />} />
         <Route path="/Apartamente" element={<Apartamente />} />
+        <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
       </Routes>
     </>
   );

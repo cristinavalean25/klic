@@ -90,15 +90,43 @@
 .container-ap-80 {
   width: 80%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(49%, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   background-color: #efefef;
+}
+
+.lista-apartamente-item {
+  position: relative;
+}
+
+.overlay-lista-ap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.32);
+  flex-direction: column;
+  padding: 3%;
+}
+
+.title-propriety {
+  font-size: 16px;
+  text-transform: uppercase;
+  line-height: 22px;
+  color: #fff;
+  letter-spacing: 2.2px;
 }
 
 .property-image {
   width: 100%;
   height: 400px;
   overflow: hidden;
+}
+
+.etc-det {
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 15px;
 }
 
 .image-container {
@@ -110,6 +138,94 @@
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+
+.property-container.custom-width {
+  grid-column: span 2;
+  flex-direction: row;
+}
+
+.property-container.custom-width.special {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  background-color: #1b2844;
+  height: 800px;
+  padding: 2%;
+}
+
+.special-content {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+}
+
+.line-prop-h2 {
+  width: 120px;
+  border: 1px solid #fff;
+  align-items: center;
+}
+
+.text-content {
+  width: 35%;
+  height: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.text-content h4 {
+  font-size: 30px;
+  letter-spacing: 4.4px;
+  line-height: 52px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.line-before-title {
+  width: 150px;
+  height: 2px;
+  margin-bottom: 10px;
+}
+
+.icon-details {
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+}
+
+.title-zona {
+  font-size: 17px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.icon-det {
+  color: #fff;
+  font-size: 17px;
+  line-height: 38px;
+}
+
+.icon-text {
+  margin-left: 25px;
+}
+
+.image-content {
+  display: flex;
+  width: 55%;
+  align-items: center;
+  justify-content: center;
+}
+
+.ind-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 @media only screen and (max-width: 768px) {
@@ -126,13 +242,6 @@
     width: 95%;
     grid-gap: 10px;
   }
-
-  /* .property-image .image-container {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
-  } */
 
   .input-container-ap,
   .spaced-inputs-ap {

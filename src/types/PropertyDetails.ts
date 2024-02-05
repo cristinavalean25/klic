@@ -44,7 +44,7 @@ export interface PropertyDetails {
   judet: string;
   zona: string;
   caroiaj: string;
-  devanzare: string;
+  devanzare: number;
   monedavanzare: string;
   monedainchiriere: string;
   pretvanzare: number;
@@ -74,4 +74,5 @@ export interface PropertyDetails {
   indice_emisii: string;
   consum_energie_regenerabila: string;
   tipvanzare: string;
+  deinchiriat: number;
 }
