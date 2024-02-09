@@ -9,7 +9,7 @@ interface ListaApartamenteProps {
 const ListaApartamente: React.FC<ListaApartamenteProps> = ({
   propertyDetails,
 }) => {
-  const { images, pretvanzare, zona, titlu } = propertyDetails || {};
+  const { images, pretvanzare, zona, titlu, idnum } = propertyDetails || {};
 
   return (
     <div className="lista-apartamente-item">
@@ -24,6 +24,7 @@ const ListaApartamente: React.FC<ListaApartamenteProps> = ({
 
               <div className="etc-det">
                 <p> €{pretvanzare}</p>
+                <p>{idnum}</p>
                 <p>{zona}</p>
               </div>
             </div>

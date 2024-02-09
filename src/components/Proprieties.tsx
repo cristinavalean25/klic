@@ -20,7 +20,7 @@ function Proprieties() {
       textVacantion: "",
     },
     {
-      link: "/",
+      link: "/Case",
       imgSrc: imgAp,
       textTitle: "ANSAMBLE NOI",
       textCase: "CASE - VILE",

@@ -1,0 +1,44 @@
+.lista-case {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 90%;
+}
+
+.center-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+}
+
+.big-container-case {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.property {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.full-width {
+  grid-column: 1 / span 2;
+  height: 700px;
+}
+
+.img-container {
+  width: 100%; /* Setăm lățimea maximă a containerului imaginii */
+  height: 400px; /* Setăm înălțimea maximă a containerului imaginii */
+  overflow: hidden; /* Ascundem părțile suplimentare ale imaginii care ar putea depăși containerul */
+}
+
+.img-casa {
+  width: 100%; /* Imaginile vor umple întregul container */
+  height: 100%; /* Imaginile vor umple întregul container */
+  object-fit: cover; /* Redimensionăm imaginea pentru a se potrivi în container, menținând raportul de aspect și evitând deformarea */
+}

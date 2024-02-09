@@ -256,7 +256,7 @@ function Navbar() {
             </div>
           </div>
         </nav>
-        <hr style={{ width: "100%", color: "#F8F9FA" }} />
+        {/* <hr style={{ width: "100%", color: "#F8F9FA" }} /> */}
       </div>
     </>
   );

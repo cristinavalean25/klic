@@ -23,10 +23,8 @@ function Apartamente() {
     const storedPage = localStorage.getItem("currentPage");
     return storedPage ? parseInt(storedPage, 9) : 1;
   });
-  const [specialIndex, setSpecialIndex] = useState(4);
-  const [specialContent, setSpecialContent] = useState<PropertyDetails | null>(
-    null
-  );
+  const [specialIndex] = useState(4);
+  const [, setSpecialContent] = useState<PropertyDetails | null>(null);
 
   const fetchAllData = async (): Promise<{
     properties: PropertyDetails[];
@@ -221,7 +219,7 @@ function Apartamente() {
                       <span>
                         <div className="line-before-title"></div>
                       </span>
-                      <h4>{property.titlu.ro}</h4>
+                      <p className="title-special">{property.titlu.ro}</p>
                       <p className="title-zona">{property.zona}</p>
 
                       <div className="icon-container">
