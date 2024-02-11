@@ -11,7 +11,7 @@ function Proprieties() {
   const { proprietati } = detalii;
   const images = [
     {
-      link: "/Apartamente",
+      link: "/Rezidential",
       imgSrc: imgCasa,
       textTitle: "REZIDENTIALE",
       textCase: "CASE - APARTAMENTE",

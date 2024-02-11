@@ -10,6 +10,7 @@ import Apartamente from "./Rezidential/Apartamente";
 import Navbar from "./components/Navbar";
 import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 import Case from "./Rezidential/Case";
+import Rezidential from "./Rezidential/Rezidential";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/ZoneSibiu" element={<ZoneSibiu />} />
         <Route path="/News" element={<News />} />
         <Route path="/Footer" element={<Footer />} />
+        <Route path="/Rezidential" element={<Rezidential />} />
         <Route path="/Apartamente" element={<Apartamente />} />
         <Route path="/Case" element={<Case />} />
         <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
