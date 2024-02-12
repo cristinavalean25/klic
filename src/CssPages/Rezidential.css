@@ -1,0 +1,149 @@
+.rezidential-container {
+  width: 100%;
+  height: auto;
+  background-color: #efefef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.rez-2 {
+  width: 80%;
+  height: auto;
+}
+
+.property-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.property-item {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
+}
+
+.property-details {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin: 0px;
+}
+
+.property-item-full {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  width: 100%;
+  height: 550px;
+  background-color: #13203c;
+  padding: 2%;
+}
+
+.property-item-full .property-details {
+  width: 100vw;
+  height: 550px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.property-item-full .rezidential-img {
+  width: 100%;
+  height: 80%;
+  object-fit: fill;
+  margin: 0 auto;
+}
+
+.rezidential-img {
+  max-width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.overlay-rezidential {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.property-container :nth-child(5) .property-details {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.property-container :nth-child(5) .overlay-rezidential {
+  display: none;
+}
+
+.property-container :nth-child(5) .property-item-full {
+  width: 100vw !important;
+}
+
+.large-title h4 {
+  font-size: 24px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.title-5-idnum {
+  text-align: center;
+  color: #fff;
+}
+
+.additional-div {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+.aditional-div-2 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.column-div {
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.column-div p {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.space-between-properties {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: #13203c;
+  width: 100%;
+  height: 50px;
+}
