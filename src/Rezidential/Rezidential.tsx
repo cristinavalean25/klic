@@ -5,10 +5,14 @@ import "../CssPages/Rezidential.css";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function Rezidential() {
   const [apartamente, setApartamente] = useState<PropertyDetails[]>([]);
   const [caseDeVanzare, setCaseDeVanzare] = useState<PropertyDetails[]>([]);
+  const [apartamenteInchiriat, setApartamenteInchiriat] = useState<
+    PropertyDetails[]
+  >([]);
   const [loadingTime, setLoadingTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -25,7 +29,7 @@ function Rezidential() {
         let allProperties: PropertyDetails[] = [];
         let currentPage = 1;
         let totalPages = 1;
-        const targetProperties = 9;
+        const targetProperties = 37;
 
         const startTime = performance.now();
 
@@ -42,7 +46,8 @@ function Rezidential() {
           throw new Error("Failed to fetch properties");
         }
 
-        currentPage = totalPages;
+        currentPage = totalPages - 1;
+
         while (allProperties.length < targetProperties && currentPage >= 1) {
           const response = await axios.get("/api/sites/v1/properties", {
             params: {
@@ -54,6 +59,10 @@ function Rezidential() {
           if (response.status === 200) {
             const currentPageProperties: PropertyDetails[] = response.data.data;
             allProperties = allProperties.concat(currentPageProperties);
+
+            if (allProperties.length >= targetProperties) {
+              break;
+            }
           } else {
             throw new Error("Failed to fetch properties");
           }
@@ -67,8 +76,14 @@ function Rezidential() {
         setLoadingTime(loadingTimeInMilliseconds);
 
         const lastApartamente = allProperties
-          .filter((property) => property.tiplocuinta === "apartament")
-          .slice(-targetProperties);
+          .filter((property: PropertyDetails) => {
+            return (
+              property.tiplocuinta &&
+              property.tiplocuinta.toLowerCase() === "apartament" &&
+              property.devanzare === 1
+            );
+          })
+          .slice(-9);
 
         const lastCasaVilaProperties = allProperties
           .filter(
@@ -76,10 +91,29 @@ function Rezidential() {
               property.tip.toLowerCase().includes("casa") ||
               property.tip.toLowerCase().includes("vila")
           )
-          .slice(-targetProperties);
+          .slice(-9);
+
+        const lastApartamenteInchiriat = allProperties
+          .filter((property: PropertyDetails) => {
+            return (
+              property.tiplocuinta &&
+              property.tiplocuinta.toLowerCase() === "apartament" &&
+              property.deinchiriat === 1
+            );
+          })
+          .slice(-9);
+
+        console.log(
+          "Number of properties after page",
+          currentPage,
+          ":",
+          allProperties.length
+        );
+        console.log("Filtered apartments for sale:", lastApartamente);
 
         setApartamente(lastApartamente);
         setCaseDeVanzare(lastCasaVilaProperties);
+        setApartamenteInchiriat(lastApartamenteInchiriat);
       } catch (error) {
         console.error("Error fetching properties:", error);
       }
@@ -93,7 +127,10 @@ function Rezidential() {
       <Navbar />
       <div className="rezidential-container">
         <div className="rez-2">
-          <h2>Ultimele apartamente:</h2>
+          {/*Ultimele 10 apartamente de vanzare*/}
+          <Link to="/Apartamente">
+            <h2>Ultimele apartamente: </h2>
+          </Link>
           <div className="property-container">
             {apartamente.map((apartament, index) => (
               <div
@@ -162,7 +199,11 @@ function Rezidential() {
 
           <div className="space-between-properties"></div>
 
-          <h2>Ultimele case de vânzare:</h2>
+          {/*Ultimele 10 case de vanzare*/}
+
+          <Link to="/Case">
+            <h2>Ultimele case de vânzare:</h2>
+          </Link>
           <div className="property-container">
             {caseDeVanzare.map((casa, index) => (
               <div
@@ -188,6 +229,9 @@ function Rezidential() {
                         {" "}
                         {casa.titlu && casa.titlu.ro}
                       </h4>
+                    </div>
+                    <div className="icon-container">
+                      <FontAwesomeIcon icon={faBed} className="overlay-icon" />
                     </div>
                   </div>
                   <img
@@ -225,6 +269,26 @@ function Rezidential() {
                     </div>
                   </div>
                 )}
+              </div>
+            ))}
+          </div>
+
+          <div className="space-between-properties"></div>
+
+          {/*Ultimele 10 apartamente de inchiriat */}
+
+          <div className="property-container">
+            {apartamenteInchiriat.map((apInchiriat, index) => (
+              <div key={index} className="property-details">
+                <img
+                  src={
+                    apInchiriat.images && apInchiriat.images.length > 0
+                      ? apInchiriat.images[0].src
+                      : ""
+                  }
+                  alt="img-inch"
+                  className="rezidential-img"
+                />
               </div>
             ))}
           </div>

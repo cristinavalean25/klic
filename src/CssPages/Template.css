@@ -169,6 +169,7 @@
   height: 45px;
   text-align: center;
   color: #fff;
+  font-size: 12px;
 }
 
 .spaced-inputs .additional-input::placeholder {

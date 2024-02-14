@@ -15,7 +15,7 @@
 }
 
 .text-container-proprieties h2 {
-  font-size: 28px;
+  font-size: 24px;
   line-height: 38px;
   color: #233356;
   letter-spacing: 1.6px;
@@ -93,15 +93,6 @@
   justify-content: center;
   bottom: 0;
 }
-
-/* .image-container:hover .image-text {
-  height: 100%;
-  width: 100%;
-  background: rgba(11, 21, 44, 0.7);
-  transition: all 0.3s ease;
-  position: sticky;
-  bottom: 0;
-} */
 
 .image-container,
 .image-text {

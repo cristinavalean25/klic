@@ -104,14 +104,15 @@
 }
 
 .large-title h4 {
-  font-size: 24px;
+  font-size: 14px;
   text-transform: uppercase;
-  color: #fff;
 }
 
 .title-5-idnum {
   text-align: center;
   color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .additional-div {

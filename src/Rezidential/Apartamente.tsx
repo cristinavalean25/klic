@@ -11,6 +11,7 @@ import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
 function Apartamente() {
   const onlyDigitsRegex = /^[0-9]*$/;
   const errorMessage = "Introduceți doar cifre.";
+  const [loading, setLoading] = useState<boolean>(false);
 
   function validateInput(inputValue: string): boolean {
     return onlyDigitsRegex.test(inputValue);
@@ -209,7 +210,7 @@ function Apartamente() {
             currentProperties.map((property, index) => (
               <div
                 key={property.idnum}
-                className={`property-container ${
+                className={`property-container-ap ${
                   index === specialIndex ? "custom-width special" : ""
                 }`}
               >
@@ -219,7 +220,12 @@ function Apartamente() {
                       <span>
                         <div className="line-before-title"></div>
                       </span>
-                      <p className="title-special">{property.titlu.ro}</p>
+                      <p
+                        className="title-special"
+                        style={{ color: "#fff", textTransform: "uppercase" }}
+                      >
+                        {property.titlu.ro}
+                      </p>
                       <p className="title-zona">{property.zona}</p>
 
                       <div className="icon-container">
