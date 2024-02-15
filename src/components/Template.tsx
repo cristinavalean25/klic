@@ -44,7 +44,8 @@ function Template() {
   const navbarClass = isScrolled ? "navbar fixed-navbar" : "navbar";
 
   const dropdownItems = [
-    { label: "REZIDENTIAL", path: "/rezidential" },
+    { label: "APARTAMENTE", path: "/Apartamente" },
+    { label: "CASE", path: "/Case" },
     { label: "COMERCIAL", path: "/comercial" },
     { label: "ANSAMBLURI REZIDENTIALE", path: "/ansambluri" },
     { label: "CASE LA TARA", path: "/casetara" },

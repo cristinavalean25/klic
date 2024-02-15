@@ -7,16 +7,9 @@ import axios from "axios";
 import logo from "../Images/klic-blue.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
+import SearchInput from "../components/SearchInput";
 
 function Apartamente() {
-  const onlyDigitsRegex = /^[0-9]*$/;
-  const errorMessage = "Introduceți doar cifre.";
-  const [loading, setLoading] = useState<boolean>(false);
-
-  function validateInput(inputValue: string): boolean {
-    return onlyDigitsRegex.test(inputValue);
-  }
-
   const [properties, setProperties] = useState<PropertyDetails[]>([]);
 
   const [propertiesPerPage] = useState(9);
@@ -128,81 +121,7 @@ function Apartamente() {
   return (
     <>
       <Navbar />
-      <div className="container-ap-1">
-        <div className="input-ap">
-          <div className="select-container-ap">
-            <select className="select-button-ap">
-              <option value="cumpara" className="custom-botton">
-                Cumpara
-              </option>
-              <option value="inchiriaza">Inchiriaza</option>
-            </select>
-          </div>
-          <input
-            className="first-input"
-            type="text"
-            placeholder="CAUTA DUPA DENUMIRE"
-          />
-        </div>
-
-        <div className="input-container spaced-inputs">
-          <input
-            type="text"
-            placeholder="PRET MINIM"
-            className="additional-input text-white"
-            onInput={(e) => {
-              if (!validateInput((e.target as HTMLInputElement).value)) {
-                alert(errorMessage);
-                (e.target as HTMLInputElement).value = "";
-              }
-            }}
-          />
-          <input
-            type="text"
-            placeholder="PRET MAXIM"
-            className="additional-input"
-            onInput={(e) => {
-              if (!validateInput((e.target as HTMLInputElement).value)) {
-                alert(errorMessage);
-                (e.target as HTMLInputElement).value = "";
-              }
-            }}
-          />
-          <input
-            type="text"
-            placeholder="CAMERE"
-            className="additional-input"
-            onInput={(e) => {
-              if (!validateInput((e.target as HTMLInputElement).value)) {
-                alert(errorMessage);
-                (e.target as HTMLInputElement).value = "";
-              }
-            }}
-          />
-          <input
-            type="text"
-            placeholder="BAIE"
-            className="additional-input"
-            onInput={(e) => {
-              if (!validateInput((e.target as HTMLInputElement).value)) {
-                alert(errorMessage);
-                (e.target as HTMLInputElement).value = "";
-              }
-            }}
-          />
-          <input
-            type="text"
-            placeholder="LOC  PARCARE"
-            className="additional-input"
-            onInput={(e) => {
-              if (!validateInput((e.target as HTMLInputElement).value)) {
-                alert(errorMessage);
-                (e.target as HTMLInputElement).value = "";
-              }
-            }}
-          />
-        </div>
-      </div>
+      <SearchInput />
 
       <div className="container-ap">
         <div className="container-ap-80">

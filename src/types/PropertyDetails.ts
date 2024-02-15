@@ -75,4 +75,5 @@ export interface PropertyDetails {
   consum_energie_regenerabila: string;
   tipvanzare: string;
   deinchiriat: number;
+  listingType: string;
 }

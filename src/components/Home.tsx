@@ -11,7 +11,6 @@ function Home() {
   return (
     <div className="App">
       <Template />
-
       <Proprieties />
       <Cifre />
       <WhyKlic />

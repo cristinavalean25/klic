@@ -4,8 +4,14 @@ import { PropertyDetails } from "../types/PropertyDetails";
 import "../CssPages/Rezidential.css";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShower,
+  faBed,
+  faExpand,
+  faL,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import SearchInput from "../components/SearchInput";
 
 function Rezidential() {
   const [apartamente, setApartamente] = useState<PropertyDetails[]>([]);
@@ -14,6 +20,11 @@ function Rezidential() {
     PropertyDetails[]
   >([]);
   const [loadingTime, setLoadingTime] = useState<number | null>(null);
+  const [overlayExpanded, setOverlayExpanded] = useState(false);
+
+  const toggleOverlay = () => {
+    setOverlayExpanded(!overlayExpanded);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,6 +136,7 @@ function Rezidential() {
   return (
     <>
       <Navbar />
+      <SearchInput />
       <div className="rezidential-container">
         <div className="rez-2">
           {/*Ultimele 10 apartamente de vanzare*/}
@@ -141,22 +153,16 @@ function Rezidential() {
               >
                 <div className="property-details">
                   <div
-                    className={
-                      index === 4
-                        ? "overlay-rezidential overlay-rezidential-row"
-                        : "overlay-rezidential"
-                    }
+                    className={`overlay-rezidential ${
+                      overlayExpanded ? "expanded" : ""
+                    }`}
+                    onClick={toggleOverlay}
                   >
-                    <div
-                      className={`property-title ${
-                        index === 4 ? "large-title" : ""
-                      }`}
-                    >
-                      <h4 className="title-5-idnum">
-                        {" "}
-                        {apartament.titlu && apartament.titlu.ro}
-                      </h4>
-                    </div>
+                    {/* Content of the overlay */}
+                    <FontAwesomeIcon icon={faL} className="overlay-icon" />
+                    <h4 className="title-5-idnum">
+                      {apartament.titlu && apartament.titlu.ro}
+                    </h4>
                   </div>
                   <img
                     src={
@@ -164,14 +170,11 @@ function Rezidential() {
                         ? apartament.images[0].src
                         : ""
                     }
-                    alt={
-                      apartament.images && apartament.images.length > 0
-                        ? apartament.images[0].alt
-                        : ""
-                    }
+                    alt="img"
                     className="rezidential-img"
                   />
                 </div>
+
                 {index === 4 && (
                   <div className="additional-div">
                     <h3>{apartament.titlu && apartament.titlu.ro}</h3>

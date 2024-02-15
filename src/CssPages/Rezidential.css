@@ -9,7 +9,7 @@
 }
 
 .rez-2 {
-  width: 80%;
+  width: 70%;
   height: auto;
 }
 
@@ -62,14 +62,14 @@
 
 .property-item-full .rezidential-img {
   width: 100%;
-  height: 80%;
+  height: 90%;
   object-fit: fill;
   margin: 0 auto;
 }
 
 .rezidential-img {
   max-width: 100%;
-  height: 400px;
+  height: 370px;
   object-fit: cover;
 }
 
@@ -79,15 +79,19 @@
   left: 0;
   width: 100%;
   height: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(71, 77, 96, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
-  opacity: 0.8;
+  opacity: 1;
   transition: opacity 0.3s ease;
   z-index: 2;
+}
+
+.overlay-rezidential.expanded {
+  opacity: 1;
 }
 
 .property-container :nth-child(5) .property-details {

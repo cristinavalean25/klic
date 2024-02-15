@@ -1,83 +1,3 @@
-.container-ap-1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-  background-color: #efefef;
-  flex-direction: column;
-  padding-bottom: 5%;
-}
-
-.input-ap {
-  width: 59%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  margin-top: 5rem;
-  border: none;
-  padding-bottom: 1rem;
-}
-
-.first-input {
-  width: 100%;
-  height: auto;
-  padding: 14px;
-  border: none;
-  outline: none;
-}
-
-.input-ap .first-input:focus {
-  outline: none;
-  border: none;
-  box-shadow: none;
-}
-
-.select-container-ap {
-  position: relative;
-  width: 200px;
-}
-
-.select-button-ap {
-  width: 100%;
-  padding: 10px;
-  height: 52px;
-  background-color: #91a0c1;
-  color: #1b2844;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  outline: none;
-}
-
-.select-button-ap:focus {
-  outline: none;
-}
-
-.input-container input {
-  width: 100%;
-  padding: 12px;
-  height: 58px;
-  margin: 0;
-  border: none;
-  border-radius: 0;
-}
-
-.input-container::after {
-  font-size: 14px;
-  text-transform: uppercase;
-  color: #fff;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.spaced-inputs {
-  margin-top: 10px;
-}
-
 .container-ap {
   display: flex;
   align-items: stretch;
@@ -261,22 +181,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .input-ap {
-    width: 90%;
-    flex-direction: column;
-  }
-
-  .input-container-ap,
-  .spaced-inputs-ap {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .select-container-ap {
-    width: 100%;
-  }
-
   .container-ap {
     display: flex;
     align-items: center;
