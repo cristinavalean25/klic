@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import SearchInput from "../components/SearchInput";
+import LastTenApartaments from "./Apartamente/LastTenApartaments";
 
 function Rezidential() {
   const [apartamente, setApartamente] = useState<PropertyDetails[]>([]);
@@ -137,6 +138,7 @@ function Rezidential() {
     <>
       <Navbar />
       <SearchInput />
+      <LastTenApartaments />
       <div className="rezidential-container">
         <div className="rez-2">
           {/*Ultimele 10 apartamente de vanzare*/}

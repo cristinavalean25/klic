@@ -10,7 +10,7 @@
 }
 
 .input-ap {
-  width: 40%;
+  width: 55%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +29,7 @@
 .select-button-ap {
   width: 100%;
   padding: 10px;
-  height: 45px;
+  height: 50px;
   background-color: #91a0c1;
   color: #1b2844;
   border: none;
@@ -45,7 +45,7 @@
 
 .first-input {
   width: 100%;
-  height: 47px;
+  height: 50px;
   padding: 7px;
   margin-top: 4px;
   border: none;

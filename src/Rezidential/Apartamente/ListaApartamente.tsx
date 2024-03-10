@@ -1,6 +1,6 @@
 import React from "react";
-import "../CssPages/Apartamente.css";
-import { PropertyDetails } from "../types/PropertyDetails";
+import "../../CssPages/Apartamente.css";
+import { PropertyDetails } from "../../types/PropertyDetails";
 
 interface ListaApartamenteProps {
   propertyDetails: PropertyDetails;

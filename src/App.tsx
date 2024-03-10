@@ -5,7 +5,7 @@ import WhyKlic from "./components/WhyKlic";
 import ZoneSibiu from "./components/ZoneSibiu";
 import News from "./components/News";
 import Footer from "./components/Footer";
-import Apartamente from "./Rezidential/Apartamente";
+import Apartamente from "./Rezidential/Apartamente/Apartamente";
 import Navbar from "./components/Navbar";
 import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 import Case from "./Rezidential/Case";

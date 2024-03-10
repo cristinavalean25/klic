@@ -1,24 +1,18 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import "../CssPages/Apartamente.css";
+import Navbar from "../../components/Navbar";
+import "../../CssPages/Apartamente.css";
 import ListaApartamente from "./ListaApartamente";
-import { PropertyDetails } from "../types/PropertyDetails";
+import { PropertyDetails } from "../../types/PropertyDetails";
 import axios from "axios";
-import logo from "../Images/klic-blue.jpg";
+import logo from "../../Images/klic-blue.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
-import SearchInput from "../components/SearchInput";
+import SearchInput from "../../components/SearchInput";
 
 function Apartamente() {
   const [properties, setProperties] = useState<PropertyDetails[]>([]);
-
-  const [propertiesPerPage] = useState(9);
-  const [currentPage, setCurrentPage] = useState(() => {
-    const storedPage = localStorage.getItem("currentPage");
-    return storedPage ? parseInt(storedPage, 9) : 1;
-  });
   const [specialIndex] = useState(4);
-  const [, setSpecialContent] = useState<PropertyDetails | null>(null);
+  const sortedProperties = properties.slice().sort((a, b) => b.idnum - a.idnum);
 
   const fetchAllData = async (): Promise<{
     properties: PropertyDetails[];
@@ -38,56 +32,100 @@ function Apartamente() {
       console.time("Fetching all data");
 
       let allProperties: PropertyDetails[] = [];
-      let currentApiPage = 1;
+      let currentPage = 1;
+      let lastPage = 1;
 
-      while (true) {
-        console.log("Fetching data for page:", currentApiPage);
-
-        const response = await axios.get(
-          `/api/sites/v1/properties?page=${currentApiPage}&per_page=${propertiesPerPage}&status=for_sale`,
+      if (localStorage.getItem("cachedData")) {
+        const cachedData = JSON.parse(localStorage.getItem("cachedData") || "");
+        allProperties = cachedData.properties;
+        currentPage = cachedData.currentPage;
+        lastPage = cachedData.lastPage;
+      } else {
+        const firstPageResponse = await axios.get(
+          `/api/sites/v1/properties?page=${currentPage}&per_page=25&status=for_sale&tipvanzare=apartament`,
           { headers }
         );
 
-        if (!response.data.data || response.data.data.length === 0) {
-          break;
-        }
-
-        allProperties = [...allProperties, ...response.data.data];
-        currentApiPage++;
-
-        if (!response.data.next_page_url) {
-          break;
+        if (firstPageResponse.data && firstPageResponse.data.last_page) {
+          lastPage = firstPageResponse.data.last_page;
         }
       }
 
-      console.log("All Properties:", allProperties);
-
-      const apartamenteDeVanzare = allProperties
-        .filter((property: PropertyDetails) => {
-          return (
-            property.tiplocuinta &&
-            property.tiplocuinta.toLowerCase() === "apartament" &&
-            property.deinchiriat !== 1
+      const requests = [];
+      for (let page = currentPage; page <= lastPage; page++) {
+        if (!localStorage.getItem(`page_${page}`)) {
+          requests.push(
+            axios.get(
+              `/api/sites/v1/properties?page=${page}&per_page=25&status=for_sale&tipvanzare=apartament`,
+              { headers }
+            )
           );
-        })
-        .sort((a: PropertyDetails, b: PropertyDetails) => b.idnum - a.idnum);
+        }
+      }
 
-      const firstTenIds = apartamenteDeVanzare
-        .slice(0, 10)
-        .map((property: PropertyDetails) => property.idnum);
-      const lastTenIds = apartamenteDeVanzare
-        .slice(-10)
-        .map((property: PropertyDetails) => property.idnum);
+      const responses = await Promise.all(requests);
+
+      responses.forEach((response) => {
+        if (response.data && response.data.data) {
+          const propertiesOnPage = response.data.data.filter(
+            (property: PropertyDetails) => {
+              return (
+                property.tiplocuinta &&
+                property.tiplocuinta.toLowerCase() === "apartament" &&
+                property.deinchiriat !== 1
+              );
+            }
+          );
+          allProperties = allProperties.concat(propertiesOnPage);
+
+          localStorage.setItem(
+            `page_${response.data.current_page}`,
+            JSON.stringify(response.data)
+          );
+        } else {
+          console.error(
+            "Răspunsul de la server nu conține date valide:",
+            response
+          );
+        }
+      });
 
       console.timeEnd("Fetching all data");
 
+      console.log(
+        "Numărul total de apartamente de vânzare:",
+        allProperties.length
+      );
+      console.log(
+        "Conținutul din localStorage:",
+        localStorage.getItem("cachedData")
+      );
+
+      const firstTenIds = allProperties
+        .slice(0, 10)
+        .map((property: PropertyDetails) => property.idnum);
+      const lastTenIds = allProperties
+        .slice(-10)
+        .map((property: PropertyDetails) => property.idnum);
+
+      localStorage.setItem(
+        "cachedData",
+        JSON.stringify({
+          properties: allProperties,
+          currentPage,
+          lastPage,
+        })
+      );
+
+      localStorage.clear();
+
       return {
-        properties: apartamenteDeVanzare,
+        properties: allProperties,
         firstTenIds,
         lastTenIds,
       };
     } catch (error) {
-      console.error("Error fetching all data:", error);
+      console.error("Eroare în timpul încărcării datelor:", error);
       return {
         properties: [],
         firstTenIds: [],
@@ -102,22 +140,6 @@ function Apartamente() {
     });
   }, []);
 
-  const indexOfLastProperty = currentPage * propertiesPerPage;
-  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
-
-  const paginate = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-    localStorage.setItem("currentPage", pageNumber.toString());
-
-    const specialIndexForPage = (pageNumber - 1) * propertiesPerPage + 4;
-    setSpecialContent(properties[specialIndexForPage]);
-  };
-
-  const currentProperties = properties.slice(
-    indexOfFirstProperty,
-    indexOfLastProperty
-  );
-
   return (
     <>
       <Navbar />
@@ -125,8 +147,8 @@ function Apartamente() {
 
       <div className="container-ap">
         <div className="container-ap-80">
-          {currentProperties.length > 0 ? (
-            currentProperties.map((property, index) => (
+          {sortedProperties.length > 0 ? (
+            sortedProperties.map((property, index) => (
               <div
                 key={property.idnum}
                 className={`property-container-ap ${
@@ -187,15 +209,6 @@ function Apartamente() {
             </div>
           )}
         </div>
-      </div>
-      <div className="pagination">
-        {Array.from({
-          length: Math.ceil(properties.length / propertiesPerPage),
-        }).map((_, index) => (
-          <button key={index} onClick={() => paginate(index + 1)}>
-            {index + 1}
-          </button>
-        ))}
       </div>
     </>
   );
