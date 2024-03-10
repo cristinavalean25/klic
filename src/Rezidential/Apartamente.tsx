@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import "../../CssPages/Apartamente.css";
-import ListaApartamente from "./ListaApartamente";
-import { PropertyDetails } from "../../types/PropertyDetails";
+import "../CssPages/Apartamente.css";
 import axios from "axios";
-import logo from "../../Images/klic-blue.jpg";
+import logo from "../Images/klic-blue.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShower, faBed, faExpand } from "@fortawesome/free-solid-svg-icons";
-import SearchInput from "../../components/SearchInput";
+import { PropertyDetails } from "../types/PropertyDetails";
+import Navbar from "../components/Navbar";
+import SearchInput from "../components/SearchInput";
+import ListaApartamente from "./Apartamente/ListaApartamente";
 
 function Apartamente() {
   const [properties, setProperties] = useState<PropertyDetails[]>([]);

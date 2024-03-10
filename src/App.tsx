@@ -5,8 +5,7 @@ import WhyKlic from "./components/WhyKlic";
 import ZoneSibiu from "./components/ZoneSibiu";
 import News from "./components/News";
 import Footer from "./components/Footer";
-import Apartamente from "./Rezidential/Apartamente/Apartamente";
-import Navbar from "./components/Navbar";
+import Apartamente from "./Rezidential/Apartamente";
 import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 import Case from "./Rezidential/Case";
 import Rezidential from "./Rezidential/Rezidential";
@@ -15,7 +14,6 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/Navbar" element={<Navbar />} />
         <Route path="/" element={<Home />} />
         <Route path="/Template" element={<Template />} />
         <Route path="/WhyKlic" element={<WhyKlic />} />
