@@ -6,11 +6,13 @@ import WhyKlic from "./WhyKlic";
 import ZoneSibiu from "./ZoneSibiu";
 import News from "./News";
 import Footer from "./Footer";
+import AddFileInApi from "./AddFileInApi";
 
 function Home() {
   return (
     <div className="App">
       <Template />
+      <AddFileInApi />
       <Proprieties />
       <Cifre />
       <WhyKlic />

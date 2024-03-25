@@ -9,6 +9,7 @@ import Apartamente from "./Rezidential/Apartamente";
 import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 import Case from "./Rezidential/Case";
 import Rezidential from "./Rezidential/Rezidential";
+import ApartamenteDetalii from "./Rezidential/Apartamente/ApartamenteDetalii";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/Apartamente" element={<Apartamente />} />
         <Route path="/Case" element={<Case />} />
         <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
+        <Route path="/apartament/:id" element={<ApartamenteDetalii />} />
       </Routes>
     </>
   );

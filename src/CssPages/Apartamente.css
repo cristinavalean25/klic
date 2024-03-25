@@ -56,38 +56,16 @@
   height: 100%;
 }
 
-.img-ap {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .property-container-ap.custom-width {
   grid-column: span 2;
   flex-direction: row;
 }
 
-.property-container-ap.custom-width.special {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row;
-  background-color: #1b2844;
-  height: 800px;
-  padding: 2%;
-}
-
-.special-content {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  justify-content: space-between;
+.img-ap {
   width: 100%;
-  height: auto;
-}
-
-.title-special {
-  font-size: 18px;
+  height: 100%;
+  object-fit: fill;
+  border: none;
 }
 
 .line-prop-h2 {
