@@ -44,9 +44,9 @@ const ApartamenteDetalii: React.FC<ApartamenteDetaliiProps> = ({}) => {
       <div className="apDetails">
         <div className="overlayApDetails">
           {property ? (
-            <div>
-              <h2>{property.titlu?.ro}</h2>
-              {/* Display the title */}
+            <div className="prop-details">
+              <h2 className="title-property">{property.titlu?.ro}</h2>
+              <h4>€{property.pretvanzare}</h4>
             </div>
           ) : (
             <div>Loading...</div>
@@ -54,7 +54,11 @@ const ApartamenteDetalii: React.FC<ApartamenteDetaliiProps> = ({}) => {
         </div>
         {property && property.images && property.images.length > 0 && (
           <div className="imageContainer">
-            <img src={property.images[0].src} alt={property.images[0].alt} />
+            <img
+              src={property.images[0].src}
+              alt=""
+              className="img-responsive ap-det-images"
+            />
             {/* Display the first image of the property */}
           </div>
         )}
