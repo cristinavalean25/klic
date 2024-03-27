@@ -9,7 +9,9 @@ function Apartamente() {
   const [properties, setProperties] = useState<PropertyDetails[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  const [pageSize] = useState(9);
+  const pageSize = 9;
+  const [loading, setLoading] = useState(true);
+  const [waiting, setWaiting] = useState(false);
 
   useEffect(() => {
     const fetchPage = async (pageNumber: number) => {
@@ -42,7 +44,6 @@ function Apartamente() {
 
     const fetchPages = async () => {
       try {
-        console.time("Fetching data");
         const agentId =
           "$2y$10$7RDBMR9Gc4G0M.2oWM3S2uFBuUJKdmmjo10Qrcoim.RXjXd13g/0K";
         const agentPassword =
@@ -70,25 +71,30 @@ function Apartamente() {
         );
 
         const flattenedProperties = pagesData.flat();
-        console.log("Total properties:", flattenedProperties.length);
         setProperties(flattenedProperties);
-        console.timeEnd("Fetching data");
+        setLoading(false); // Setam starea de încărcare ca fiind finalizată
       } catch (error) {
         console.error("Error while loading data:", error);
+        setLoading(false); // În caz de eroare, oprim indicatorul de încărcare
       }
     };
 
     fetchPages();
-  }, [pageSize]);
+  }, []);
 
   const onPageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  const paginatedProperties = properties.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  const goBack = async () => {
+    setWaiting(true);
+    await new Promise((resolve) => setTimeout(resolve, 10000)); // Așteptăm 10 secunde
+    setWaiting(false);
+  };
+
+  // Calculăm indexul de început și sfârșit pentru paginare
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, properties.length);
 
   return (
     <>
@@ -96,35 +102,35 @@ function Apartamente() {
       <SearchInput />
       <div className="container-ap">
         <div className="container-ap-80">
-          {paginatedProperties.length > 0 ? (
-            paginatedProperties.map((property, index) => (
+          {waiting ? (
+            <div>Waiting...</div>
+          ) : loading ? (
+            <div>Loading...</div>
+          ) : (
+            properties.slice(startIndex, endIndex).map((property, index) => (
               <div key={property.idnum}>
                 <ListaApartamente propertyDetails={property} key={index} />
               </div>
             ))
-          ) : (
-            <div>No properties to display.</div>
           )}
         </div>
       </div>
       <div>
-        <button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Prev
+        <button onClick={goBack} disabled={waiting}>
+          Go Back
         </button>
         {Array.from({ length: lastPage }, (_, index) => (
-          <button key={index + 1} onClick={() => onPageChange(index + 1)}>
+          <button
+            key={index + 1}
+            onClick={() => onPageChange(index + 1)}
+            disabled={loading}
+            style={{
+              fontWeight: currentPage === index + 1 ? "bold" : "normal",
+            }}
+          >
             {index + 1}
           </button>
         ))}
-        <button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === lastPage}
-        >
-          Next
-        </button>
       </div>
     </>
   );
