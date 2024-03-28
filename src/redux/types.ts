@@ -1,53 +1,50 @@
 // types.ts
 
-export interface Property {
-  idnum: number;
-  idstr: string;
-  agent: number;
-  dataadaugare: number;
-  adresa: string;
-  // alte proprietăți
-}
-
-export interface AppState {
-  properties: Property[];
-  currentPage: number;
-  lastPage: number;
-  loading: boolean;
-  waiting: boolean;
-}
+import { PropertyDetails } from "../types/PropertyDetails";
 
 export enum ActionTypes {
-  FETCH_DATA = "FETCH_DATA",
-  SET_DATA = "SET_DATA",
-  SET_PAGE = "SET_PAGE",
-  SET_WAITING = "SET_WAITING",
+  FETCH_PROPERTIES = "FETCH_PROPERTIES",
+  FETCH_PROPERTIES_SUCCESS = "FETCH_PROPERTIES_SUCCESS",
+  FETCH_PROPERTIES_FAILURE = "FETCH_PROPERTIES_FAILURE",
+  SET_CURRENT_PAGE = "SET_CURRENT_PAGE",
+  SET_LAST_PAGE = "SET_LAST_PAGE", // Add SET_LAST_PAGE action type
 }
 
-export interface FetchDataAction {
-  type: ActionTypes.FETCH_DATA;
+export interface FetchPropertiesAction {
+  type: ActionTypes.FETCH_PROPERTIES;
 }
 
-export interface SetDataAction {
-  type: ActionTypes.SET_DATA;
-  payload: {
-    properties: Property[];
-    lastPage: number;
-  };
+export interface FetchPropertiesSuccessAction {
+  type: ActionTypes.FETCH_PROPERTIES_SUCCESS;
+  payload: PropertyDetails[];
 }
 
-export interface SetPageAction {
-  type: ActionTypes.SET_PAGE;
+export interface FetchPropertiesFailureAction {
+  type: ActionTypes.FETCH_PROPERTIES_FAILURE;
+  payload: string; // or Error type
+}
+
+export interface SetCurrentPageAction {
+  type: ActionTypes.SET_CURRENT_PAGE;
   payload: number;
 }
 
-export interface SetWaitingAction {
-  type: ActionTypes.SET_WAITING;
-  payload: boolean;
+export interface SetLastPageAction {
+  type: ActionTypes.SET_LAST_PAGE;
+  payload: number;
+}
+
+export interface AppState {
+  properties: PropertyDetails[];
+  currentPage: number;
+  lastPage: number; // Fix the property name here
+  loading: boolean;
+  error: string | null;
 }
 
 export type Action =
-  | FetchDataAction
-  | SetDataAction
-  | SetPageAction
-  | SetWaitingAction;
+  | FetchPropertiesAction
+  | FetchPropertiesSuccessAction
+  | FetchPropertiesFailureAction
+  | SetCurrentPageAction
+  | SetLastPageAction; // Include SetLastPageAction in the union type
