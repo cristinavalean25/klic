@@ -5,47 +5,11 @@ import Navbar from "../../components/Navbar";
 import SearchInput from "../../components/SearchInput";
 import ListaApartamente from "./ListaApartamente";
 
-const fetchPage = async (
-  pageNumber: number,
-  pageSize: number,
-  totalPages: number
-): Promise<PropertyDetails[]> => {
-  try {
-    const agentId =
-      "$2y$10$7RDBMR9Gc4G0M.2oWM3S2uFBuUJKdmmjo10Qrcoim.RXjXd13g/0K";
-    const agentPassword =
-      "$2y$10$Oc9YkDuKo9YKbCNayHrJbu8PiY9pA4dElWktPnoTAt5nh7emizaz6";
-    const headers = {
-      Authorization: `Basic ${btoa(`${agentId}:${agentPassword}`)}`,
-    };
-
-    const reversedPageNumber = totalPages - pageNumber + 1; // Inversăm numărul paginii
-
-    const response = await axios.get("/api/sites/v1/properties", {
-      headers,
-      params: {
-        status: "for_sale",
-        page: reversedPageNumber,
-        per_page: pageSize,
-      },
-    });
-
-    return response.data.data.filter(
-      (property: PropertyDetails) => property.tiplocuinta === "apartament"
-    );
-  } catch (error) {
-    console.error("Error while loading data:", error);
-    return [];
-  }
-};
-
 function Apartamente() {
   const [properties, setProperties] = useState<PropertyDetails[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
-  const pageSize = 9;
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
+  const [startIndex, setStartIndex] = useState(0); // indexul de start al proprietăților afișate
+  const [currentPage, setCurrentPage] = useState(1); // pagina curentă
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,19 +28,22 @@ function Apartamente() {
           headers,
           params: {
             status: "for_sale",
-            page: 1,
-            per_page: pageSize,
           },
         });
 
         const totalPages = totalPagesResponse.data.last_page;
-        setLastPage(totalPages);
+        console.log("Total pages:", totalPages);
+
+        let allProperties: PropertyDetails[] = [];
+        for (let i = totalPages; i >= 1; i--) {
+          const propertiesOnPage = await fetchPropertiesForPage(i, headers);
+          allProperties = [...allProperties, ...propertiesOnPage];
+          setProperties(allProperties);
+        }
+
+        setLoading(false);
 
         console.timeEnd("Data loading time");
-
-        const initialData = await fetchPage(currentPage, pageSize, totalPages);
-        setProperties(initialData);
-        setLoading(false);
       } catch (error) {
         console.error("Error while loading data:", error);
         setLoading(false);
@@ -86,58 +53,67 @@ function Apartamente() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-          document.documentElement.offsetHeight &&
-        !loadingMore &&
-        currentPage < lastPage
-      ) {
-        setLoadingMore(true);
-        setCurrentPage((prevPage) => prevPage + 1);
-      }
-    };
+  const fetchPropertiesForPage = async (page: number, headers: any) => {
+    try {
+      const response = await axios.get("/api/sites/v1/properties", {
+        headers,
+        params: {
+          status: "for_sale",
+          page,
+        },
+      });
 
-    window.addEventListener("scroll", handleScroll);
+      const propertiesOnPage = response.data.data.filter(
+        (property: PropertyDetails) => property.tiplocuinta === "apartament"
+      );
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [currentPage, lastPage, loadingMore]);
-
-  useEffect(() => {
-    const fetchMoreData = async () => {
-      try {
-        const moreData = await fetchPage(currentPage, pageSize, lastPage);
-        setProperties((prevProperties) => [...prevProperties, ...moreData]);
-        setLoadingMore(false);
-      } catch (error) {
-        console.error("Error while loading more data:", error);
-        setLoadingMore(false);
-      }
-    };
-
-    if (loadingMore && currentPage <= lastPage) {
-      fetchMoreData();
+      console.log(
+        "Properties fetched for page",
+        page,
+        ":",
+        propertiesOnPage.length
+      );
+      return propertiesOnPage;
+    } catch (error) {
+      console.error(
+        "Error while fetching properties for page",
+        page,
+        ":",
+        error
+      );
+      return [];
     }
-  }, [currentPage, lastPage, loadingMore]);
+  };
+
+  const changePage = (page: number) => {
+    setStartIndex(16 * (page - 1));
+    setCurrentPage(page);
+  };
 
   return (
     <>
       <Navbar />
       <SearchInput />
       <div className="container-ap-80">
-        {properties.map((property, index) => (
-          <div key={`${property.idnum}-${index}`}>
-            {" "}
-            {/* Folosim o combinație între idnum și index pentru a asigura unicitatea cheii */}
-            <ListaApartamente propertyDetails={property} />
-          </div>
+        {properties
+          .slice(startIndex, startIndex + 16)
+          .map((property, index) => (
+            <div key={`${property.idnum}-${index}`}>
+              <ListaApartamente propertyDetails={property} />
+            </div>
+          ))}
+      </div>
+      {loading && <div>Loading...</div>}
+      <div className="pagination">
+        {Array.from({ length: Math.ceil(properties.length / 16) }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => changePage(i + 1)}
+            className={currentPage === i + 1 ? "active" : ""}
+          >
+            {i + 1}
+          </button>
         ))}
-
-        {loading && <div>Loading...</div>}
-        {loadingMore && <div>Loading more...</div>}
       </div>
     </>
   );

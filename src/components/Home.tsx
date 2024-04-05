@@ -7,10 +7,12 @@ import ZoneSibiu from "./ZoneSibiu";
 import News from "./News";
 import Footer from "./Footer";
 import AddFileInApi from "./AddFileInApi";
+import ScrollToTop from "./ScrollToTop ";
 
 function Home() {
   return (
     <div className="App">
+      <ScrollToTop />
       <Template />
       <AddFileInApi />
       <Proprieties />

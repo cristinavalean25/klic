@@ -7,7 +7,7 @@ import News from "./components/News";
 import Footer from "./components/Footer";
 import Apartamente from "./Rezidential/Apartamente/Apartamente";
 import SpatiiComerciale from "./Comercial/SpatiiComerciale";
-import Case from "./Rezidential/Case";
+import Case from "./Rezidential/Case/Case";
 import Rezidential from "./Rezidential/Rezidential";
 import ApartamenteDetalii from "./Rezidential/Apartamente/ApartamenteDetalii";
 

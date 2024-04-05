@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PropertyDetails } from "../types/PropertyDetails";
-import "../CssPages/Case.css";
+import { PropertyDetails } from "../../types/PropertyDetails";
+import "../../CssPages/Case.css";
 
 interface ListaCaseProps {
-  properties: PropertyDetails[];
+  cases: PropertyDetails[];
   currentPage: number;
-  propertiesPerPage: number;
+  casesPerPage: number;
   onPageChange: (page: number) => void;
+  loading: boolean; // Asigurați-vă că ați adăugat această proprietate în interfață
 }
 
 const ListaCase: React.FC<ListaCaseProps> = ({
-  properties,
+  cases,
   currentPage,
-  propertiesPerPage,
+  casesPerPage,
 }) => {
   const [validImages, setValidImages] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +24,7 @@ const ListaCase: React.FC<ListaCaseProps> = ({
     const loadValidImages = async () => {
       const validImagesList: string[] = [];
 
-      for (const property of properties) {
+      for (const property of cases) {
         if (property.images && property.images.length > 0) {
           const isValid = await isValidImage(property.images[0].src);
           if (isValid) {
@@ -37,7 +38,7 @@ const ListaCase: React.FC<ListaCaseProps> = ({
     };
 
     loadValidImages();
-  }, [properties]);
+  }, [cases]);
 
   useEffect(() => {
     // Actualizăm ruta cu numărul paginii curente
@@ -53,9 +54,9 @@ const ListaCase: React.FC<ListaCaseProps> = ({
     });
   };
 
-  const startIndex = (currentPage - 1) * propertiesPerPage;
-  const endIndex = startIndex + propertiesPerPage;
-  const propertiesOnCurrentPage = properties.slice(startIndex, endIndex);
+  const startIndex = (currentPage - 1) * casesPerPage;
+  const endIndex = startIndex + casesPerPage;
+  const propertiesOnCurrentPage = cases.slice(startIndex, endIndex);
 
   return (
     <div className="lista-case">

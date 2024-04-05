@@ -5,24 +5,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import "./index.css";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import { createStore } from "redux";
+import propertyReducer from "./redux/propertyReducer";
+
+const store = createStore(propertyReducer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
-
-// Acesta este locul potrivit pentru a utiliza useEffect în afara componentei
-// Așa cum este definit acum, codul este incorect plasat și ar genera o eroare
-// Dacă aveți anumite acțiuni pe care doriți să le executați la încărcarea aplicației,
-// le puteți plasa aici înainte de ReactDOM.render, în afara oricărei componente specifice.
-
-// useEffect(() => {
-//   // Codul dvs. aici
-// });
