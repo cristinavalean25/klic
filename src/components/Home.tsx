@@ -6,7 +6,6 @@ import WhyKlic from "./WhyKlic";
 import ZoneSibiu from "./ZoneSibiu";
 import News from "./News";
 import Footer from "./Footer";
-import AddFileInApi from "./AddFileInApi";
 import ScrollToTop from "./ScrollToTop ";
 
 function Home() {
@@ -14,7 +13,7 @@ function Home() {
     <div className="App">
       <ScrollToTop />
       <Template />
-      <AddFileInApi />
+      {/* <AddFileInApi /> */}
       <Proprieties />
       <Cifre />
       <WhyKlic />

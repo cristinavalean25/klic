@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../CssPages/ZoneSibiu.css";
 import mihaiViteazul from "../Images/mihai-viteazul.png";
 import centru from "../Images/centru.jpg";
@@ -29,7 +30,8 @@ function ZoneSibiu() {
     {
       id: 5,
       imgSrc: mihaiViteazul,
-      titleZone: "Mihai Viteazul",
+      titleZone: "Toate Zonele",
+      route: "/zone",
     },
   ];
 
@@ -45,10 +47,21 @@ function ZoneSibiu() {
           <div className="zone-right">
             {zoneSibiu.map((zona, index) => (
               <div className="zone-container" key={index}>
-                <img src={zona.imgSrc} alt="" />
-                <div className="zone-text-container">
-                  <h2 className="title-zone">{zona.titleZone}</h2>
-                </div>
+                {zona.route ? (
+                  <Link to={zona.route}>
+                    <img src={zona.imgSrc} alt={zona.titleZone} />
+                    <div className="zone-text-container">
+                      <h2 className="title-zone">{zona.titleZone}</h2>
+                    </div>
+                  </Link>
+                ) : (
+                  <>
+                    <img src={zona.imgSrc} alt={zona.titleZone} />
+                    <div className="zone-text-container">
+                      <h2 className="title-zone">{zona.titleZone}</h2>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>

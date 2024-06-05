@@ -1,3 +1,5 @@
+import { Agent } from "./Agent";
+
 export interface PropertyDetails {
   idnum: number;
   idstr: string;
@@ -71,9 +73,20 @@ export interface PropertyDetails {
   utilitati_values: string[];
   eficienta_energetica: string;
   consum_specific: string;
+  disponibilitateproprietate: string;
+  nrlocuriparcare: number;
+  regim_inaltime: string;
+  anrenovare: number;
+  structura: string;
+  orientare: string;
   indice_emisii: string;
   consum_energie_regenerabila: string;
   tipvanzare: string;
   deinchiriat: number;
   listingType: string;
+  agent_info: Agent;
+
+  dotari_values: string[];
+  general_value: string[]
+  general: string[]
 }

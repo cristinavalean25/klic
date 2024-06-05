@@ -66,7 +66,7 @@ function Template() {
 
   const dropdownItemsAbout = [
     { label: "DESPRE NOI", path: "/rezidential" },
-    { label: "ECHIPA", path: "/comercial" },
+    { label: "ECHIPA", path: "/ListaAgenti" },
     { label: "CONTACTATI-NE", path: "/ansambluri" },
     { label: "CARIERA", path: "/ansambluri" },
   ];

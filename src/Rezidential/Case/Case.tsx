@@ -1,87 +1,161 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "../../components/Navbar";
-import ListaCase from "./ListaCase";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import axios, { AxiosRequestConfig } from "axios";
+
+import { ApiResponse } from "../../types/ApiResponse";
 import { PropertyDetails } from "../../types/PropertyDetails";
+import Navbar from "../../components/Navbar";
 
-function Case() {
-  const [cases, setCases] = useState<PropertyDetails[]>([]);
-  const [fetchTime, setFetchTime] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const casesPerPage = 9;
-  const [loading, setLoading] = useState(true);
+interface AxiosRequestConfigWithPage extends AxiosRequestConfig {
+  params: {
+    per_page: number;
+    page?: number;
+  };
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const agentId =
-          "$2y$10$7RDBMR9Gc4G0M.2oWM3S2uFBuUJKdmmjo10Qrcoim.RXjXd13g/0K";
-        const agentPassword =
-          "$2y$10$Oc9YkDuKo9YKbCNayHrJbu8PiY9pA4dElWktPnoTAt5nh7emizaz6";
-        const headers = {
-          Authorization: `Basic ${btoa(`${agentId}:${agentPassword}`)}`,
-        };
+const Case: React.FC = () => {
+  const [properties, setProperties] = useState<PropertyDetails[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-        console.time("Data loading time");
+  const propertiesPerPage = 14;
+  const wsUrl = "ws://your-websocket-url"; // Replace with your WebSocket URL
 
-        const startTime = performance.now(); // Începeți să măsurați timpul de încărcare
-
-        const response = await axios.get("/api/sites/v1/properties", {
-          headers,
-          params: {
-            status: "for_sale",
-            page: 1, // Fetch only the first page
-            per_page: casesPerPage,
-          },
-        });
-
-        const endTime = performance.now(); // Terminați măsurarea timpului de încărcare
-        setFetchTime(endTime - startTime); // Actualizați starea cu timpul de încărcare
-
-        console.timeEnd("Data loading time");
-
-        const filteredCases = response.data.data.filter(
-          (property: PropertyDetails) =>
-            property.tip &&
-            (property.tip.toLowerCase().includes("casa") ||
-              property.tip.toLowerCase().includes("vila"))
-        );
-
-        setCases(filteredCases); // Setăm datele filtrate
-        setLoading(false); // Oprim indicatorul de încărcare
-      } catch (error) {
-        console.error("Error while loading data:", error);
-        setLoading(false);
-      }
+  const fetchAllProperties = async () => {
+    const agentId =
+      "$2y$10$7RDBMR9Gc4G0M.2oWM3S2uFBuUJKdmmjo10Qrcoim.RXjXd13g/0K";
+    const agentPassword =
+      "$2y$10$Oc9YkDuKo9YKbCNayHrJbu8PiY9pA4dElWktPnoTAt5nh7emizaz6";
+    const authToken = btoa(`${agentId}:${agentPassword}`);
+    const config: AxiosRequestConfigWithPage = {
+      headers: {
+        Authorization: `Basic ${authToken}`,
+      },
+      params: {
+        per_page: 500,
+      },
     };
 
-    fetchData();
+    const startTime = performance.now();
+    const allProperties: PropertyDetails[] = [];
+
+    try {
+      setIsLoading(true);
+
+      // Fetch the first page to get the total number of pages
+      const initialResponse = await axios.get<ApiResponse>(
+        "/api/sites/v1/properties",
+        config
+      );
+      const totalPages = initialResponse.data.last_page;
+
+      // Create an array of promises to fetch all pages in reverse order
+      const promises = [];
+      for (let page = totalPages; page >= 1; page--) {
+        promises.push(
+          axios
+            .get<ApiResponse>("/api/sites/v1/properties", {
+              ...config,
+              params: { ...config.params, page },
+            })
+            .then((response) =>
+              response.data.data.filter(
+                (property) => property.tip === "casa / vila"
+              )
+            )
+        );
+      }
+
+      // Wait for all promises to resolve
+      const results = await Promise.all(promises);
+      results.forEach((result) => allProperties.push(...result));
+
+      // Sort properties by idnum in descending order
+      allProperties.sort((a, b) => b.idnum - a.idnum);
+
+      // Save properties to local storage
+      localStorage.setItem("properties", JSON.stringify(allProperties));
+
+      setProperties(allProperties);
+
+      const endTime = performance.now();
+      console.log(
+        `All properties loaded in ${(endTime - startTime) / 1000} seconds`
+      );
+    } catch (error) {
+      console.error("Failed to fetch properties:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const savedProperties = localStorage.getItem("properties");
+    if (savedProperties) {
+      setProperties(JSON.parse(savedProperties));
+      setIsLoading(false);
+    } else {
+      fetchAllProperties();
+    }
+
+    // Set up WebSocket connection
+    const ws = new WebSocket(wsUrl);
+
+    ws.onmessage = (event) => {
+      const newProperty: PropertyDetails = JSON.parse(event.data);
+      setProperties((prevProperties) => {
+        const updatedProperties = [newProperty, ...prevProperties];
+        updatedProperties.sort((a, b) => b.idnum - a.idnum);
+        localStorage.setItem("properties", JSON.stringify(updatedProperties));
+        return updatedProperties;
+      });
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error: ", error);
+    };
+
+    return () => {
+      ws.close();
+    };
   }, []);
+
+  // Calculate properties for the current page
+  const indexOfLastProperty = currentPage * propertiesPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
+  const currentProperties = properties.slice(
+    indexOfFirstProperty,
+    indexOfLastProperty
+  );
+
+  // Calculate total pages
+  const totalPages = Math.ceil(properties.length / propertiesPerPage);
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
       <Navbar />
-      <div className="big-container-case">
-        <p>Fetching cases took {fetchTime} milliseconds.</p>
-        <div className="center-cont">
-          <ListaCase
-            cases={cases}
-            currentPage={currentPage}
-            casesPerPage={casesPerPage}
-            onPageChange={setCurrentPage}
-            loading={loading} // Adăugați proprietatea loading aici
-          />
-        </div>
+      <div>
+        {currentProperties.map((property) => (
+          <div key={property.idnum}>
+            <h3>{property.titlu.ro}</h3>
+            <p>{property.idnum}</p>
+            {/* Render more property details as needed */}
+          </div>
+        ))}
         <div>
-          {Array.from(
-            { length: Math.ceil(cases.length / casesPerPage) },
-            (_, index) => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+            (pageNumber) => (
               <button
-                key={index + 1}
-                onClick={() => setCurrentPage(index + 1)}
-                disabled={currentPage === index + 1}
+                key={pageNumber}
+                onClick={() => handlePageChange(pageNumber)}
+                disabled={pageNumber === currentPage}
               >
-                {index + 1}
+                Page {pageNumber}
               </button>
             )
           )}
@@ -89,6 +163,6 @@ function Case() {
       </div>
     </>
   );
-}
+};
 
 export default Case;

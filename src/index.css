@@ -1,34 +1,40 @@
 @font-face {
   font-family: "SohneBreitHalbfettNormal";
-  src: url("../src/Fonts/Söhne Breit-normal-400-100.ttf") format("truetype");
+  src: url("../Fonts/Söhne Breit-normal-400-100.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SohneBreitHalbfettNormal";
-  src: url("../src/Fonts/Söhne Breit Halbfett-normal-600-100.ttf");
+  src: url("../Fonts/Söhne Breit Halbfett-normal-600-100.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SohneBreitHalbfettNormal";
-  src: url("../src/Fonts/Söhne Breit Kräftig-normal-500-100.ttf");
+  src: url("../Fonts/Söhne Breit Kräftig-normal-500-100.ttf") format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: "SohneBreitHalbfettNormal";
-  src: url("../src/Fonts/slick-normal-400-100.otf");
+  src: url("../src/Fonts/slick-normal-400-100.otf") format('opentype');
   font-weight: 400;
   font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../Fonts/Roboto-Regular.ttf') format('truetype');
 }
 
 body {
   font-family: "SohneBreitHalbfettNormal", sans-serif;
   margin: 0;
+  word-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

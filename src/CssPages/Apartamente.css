@@ -1,71 +1,128 @@
-.container-ap {
+
+.lista-apartamente-item {
+  width: 100%;
+  height: 400px; /* Set a consistent height for each grid item */
+  position: relative;
   display: flex;
   align-items: stretch;
   justify-content: center;
-  background-color: #efefef;
-  width: 100%;
-  height: auto;
+  overflow: hidden;
+  cursor: pointer; /* Make the cursor a pointer to indicate clickable items */
+  z-index: 1; /* Ensure grid items are below the special container */
 }
 
-.container-ap-80 {
-  width: 90%;
+.container {
+  width: 90%; /* Set container width to 80% */
+  margin: 0 auto; /* Center on the page */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
-  background-color: #efefef;
+  gap: 20px;
+  position: relative; /* Ensure container has a positioning context */
 }
 
-.lista-apartamente-item {
-  position: relative;
+.special-index {
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Center align full-width element */
+  grid-column: 1 / -1; /* Span across all columns */
+  position: relative; /* Change to relative for proper stacking context */
+  z-index: 2; /* Ensure it's above other elements */
+  height: 600px; /* Set the height of the special container */
 }
 
-.overlay-lista-ap {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.32);
-  flex-direction: column;
-  padding: 3%;
+.special-container {
+  background-color: #0B152C;
+  display: flex;  
+  align-items: center;
+  padding: 20px;
+  height: 100%; /* Full height of the container */
+  box-sizing: border-box;
 }
 
-.title-propriety {
-  font-size: 16px;
+.special-container .details {
+  color: white;
+  width: 55%;
+  padding-right: 20px;
+  z-index: 2;
+}
+
+.special-container .details .title {
+  font-size: 40px;
   text-transform: uppercase;
-  line-height: 22px;
+  line-height: 1.5;
   color: #fff;
-  letter-spacing: 2.2px;
+  letter-spacing: 4.4px;
+}
+
+.special-container .details .price {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.special-container .details .extra-info {
+  font-size: 16px;
+}
+
+.special-container .image-container {
+  width: 60%;
+  position: relative;
+  width: 70%;
+  height: 100%;
+  z-index: 1;
+  
+}
+
+.special-container .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-ap {
+  border: transparent;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .property-image {
+  position: relative;
   width: 100%;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+}
+
+/* Ensure the overlay is always visible */
+.overlay-lista-ap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.property-image:hover .overlay-lista-ap {
+  background-color: rgba(40, 41, 50, 0.4); /* Darker background on hover */
+}
+
+.title-propriety {
+  font-size: 18px; /* Adjust font size for better fit */
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #fff;
+  letter-spacing: 1px;
 }
 
 .etc-det {
   color: #fff;
   text-transform: uppercase;
-  line-height: 15px;
+  line-height: 1.2;
 }
 
 .image-container-ap {
   width: 100%;
   height: 100%;
-}
-
-.property-container-ap.custom-width {
-  grid-column: span 2;
-  flex-direction: row;
-}
-
-.img-ap {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  border: none;
+  overflow: hidden;
 }
 
 .line-prop-h2 {
@@ -158,125 +215,42 @@
   outline: none;
 }
 
-@media only screen and (max-width: 768px) {
-  .container-ap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
+.basic-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.detalii-zona {
+  width: 100%;
+  font-size: 12px;
+  color: white;
+  background-color: rgba(51, 83, 132, 0.6);
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
   }
 
-  .container-ap-80 {
-    width: 95%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .special-index {
+    margin-left: 0; /* Remove negative margin on smaller screens */
     flex-direction: column;
+    height: auto; /* Auto height for smaller screens */
   }
 
-  .overlay-lista-ap {
-    position: absolute;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.32);
+  .special-container {
     flex-direction: column;
-    padding: 3%;
-    height: auto;
+    align-items: flex-start;
+    padding: 10px; /* Adjust padding for smaller screens */
   }
 
-  .property-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .special-container .details {
+    padding-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .special-container .image-container {
     width: 100%;
-    height: 300px;
-  }
-
-  .detalii-zona {
-    width: 100%;
-    font-size: 12px;
-  }
-
-  .title-propriety {
-    font-size: 12px;
-    text-transform: uppercase;
-    line-height: 18px;
-    color: #fff;
-    letter-spacing: 2px;
-  }
-
-  .etc-det p {
-    color: #fff;
-    font-size: 12px;
-    text-transform: uppercase;
-    width: 100%;
-    height: auto;
-  }
-
-  .property-container-ap.custom-width {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .property-container-ap.custom-width.special {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: #1b2844;
-    width: 97%;
-    height: auto;
-    padding: 2%;
-  }
-
-  .special-content {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: space-between;
-    width: 100%;
-    height: auto;
-  }
-
-  .text-content {
-    width: 100%;
-  }
-
-  .title-special {
-    font-size: 18px;
-    color: #fff;
-    text-transform: uppercase;
-  }
-
-  .image-content {
-    width: 100%;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .pagination button {
-    background-color: #1b2844;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-
-  .pagination button:hover {
-    background-color: #91a0c1;
-  }
-
-  .pagination button:focus {
-    outline: none;
+    height: auto; /* Adjust height for smaller screens */
   }
 }

@@ -1,111 +1,107 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { PropertyDetails } from "../../types/PropertyDetails";
+import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import SearchInput from "../../components/SearchInput";
 import ListaApartamente from "./ListaApartamente";
+import "../../CssPages/Apartamente.css";
+import "../../CssPages/ApartamenteDetalii.css";
+import { useNavigate } from "react-router-dom";
+import { usePropertyContext } from "./usePropertyContext";
 
-function Apartamente() {
-  const [properties, setProperties] = useState<PropertyDetails[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [startIndex, setStartIndex] = useState(0); // indexul de start al proprietăților afișate
-  const [currentPage, setCurrentPage] = useState(1); // pagina curentă
+const Apartamente: React.FC = () => {
+  const navigate = useNavigate();
+  const { properties, loading, error } = usePropertyContext();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const agentId =
-          "$2y$10$7RDBMR9Gc4G0M.2oWM3S2uFBuUJKdmmjo10Qrcoim.RXjXd13g/0K";
-        const agentPassword =
-          "$2y$10$Oc9YkDuKo9YKbCNayHrJbu8PiY9pA4dElWktPnoTAt5nh7emizaz6";
-        const headers = {
-          Authorization: `Basic ${btoa(`${agentId}:${agentPassword}`)}`,
-        };
-
-        console.time("Data loading time");
-
-        const totalPagesResponse = await axios.get("/api/sites/v1/properties", {
-          headers,
-          params: {
-            status: "for_sale",
-          },
-        });
-
-        const totalPages = totalPagesResponse.data.last_page;
-        console.log("Total pages:", totalPages);
-
-        let allProperties: PropertyDetails[] = [];
-        for (let i = totalPages; i >= 1; i--) {
-          const propertiesOnPage = await fetchPropertiesForPage(i, headers);
-          allProperties = [...allProperties, ...propertiesOnPage];
-          setProperties(allProperties);
-        }
-
-        setLoading(false);
-
-        console.timeEnd("Data loading time");
-      } catch (error) {
-        console.error("Error while loading data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const fetchPropertiesForPage = async (page: number, headers: any) => {
-    try {
-      const response = await axios.get("/api/sites/v1/properties", {
-        headers,
-        params: {
-          status: "for_sale",
-          page,
-        },
-      });
-
-      const propertiesOnPage = response.data.data.filter(
-        (property: PropertyDetails) => property.tiplocuinta === "apartament"
-      );
-
-      console.log(
-        "Properties fetched for page",
-        page,
-        ":",
-        propertiesOnPage.length
-      );
-      return propertiesOnPage;
-    } catch (error) {
-      console.error(
-        "Error while fetching properties for page",
-        page,
-        ":",
-        error
-      );
-      return [];
-    }
-  };
+  const [currentPage, setCurrentPage] = useState<number>(() => {
+    const savedPage = localStorage.getItem("currentPage");
+    return savedPage ? parseInt(savedPage, 10) : 1;
+  });
 
   const changePage = (page: number) => {
-    setStartIndex(16 * (page - 1));
     setCurrentPage(page);
+    navigate(`?page=${page}`);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (properties.length === 0) {
+    return <div>No properties available</div>;
+  }
+
+  const apartments = properties.filter(
+    (property) => property.tiplocuinta === "apartament"
+  );
+
+  // Sort properties in descending order by ID
+  const sortedProperties = [...apartments].sort((a, b) => b.idnum - a.idnum);
+
+  // Update the number of properties per page to 24
+  const propertiesPerPage = 24;
+  const totalPages = Math.ceil(sortedProperties.length / propertiesPerPage);
+
+  const specialIndexes = [6, 11, 16, 21];
 
   return (
     <>
       <Navbar />
       <SearchInput />
-      <div className="container-ap-80">
-        {properties
-          .slice(startIndex, startIndex + 16)
-          .map((property, index) => (
-            <div key={`${property.idnum}-${index}`}>
-              <ListaApartamente propertyDetails={property} />
-            </div>
-          ))}
+      <div className="container">
+        {sortedProperties
+          .slice(
+            (currentPage - 1) * propertiesPerPage,
+            currentPage * propertiesPerPage
+          )
+          .map((property, index) => {
+            const isFullWidth = specialIndexes.includes(index);
+            return (
+              <div
+                key={`${property.idnum}-${index}`}
+                className={`lista-apartamente-item ${
+                  isFullWidth ? "special-index" : ""
+                }`}
+                onClick={() =>
+                  navigate(`/apartamente-detalii/${property.idnum}`)
+                } // Add click event for redirection
+              >
+                {isFullWidth ? (
+                  <div className="special-container">
+                    <div className="details">
+                      <h5 className="title">{property.titlu.ro}</h5>
+                      <p className="price">€{property.pretvanzare}</p>
+                      <div className="extra-info">
+                        <p>{property.nrcamere} camere</p>
+                        <p>P{property.idnum}</p>
+                      </div>
+                    </div>
+                    <div className="image-container">
+                      {property.images && property.images.length > 0 && (
+                        <div className="property-image">
+                          <img
+                            src={property.images[0].src}
+                            alt={property.images[0].alt}
+                            className="img-ap"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <ListaApartamente
+                    propertyDetails={property}
+                    currentPage={currentPage}
+                  />
+                )}
+              </div>
+            );
+          })}
       </div>
-      {loading && <div>Loading...</div>}
       <div className="pagination">
-        {Array.from({ length: Math.ceil(properties.length / 16) }, (_, i) => (
+        {Array.from({ length: totalPages }, (_, i) => (
           <button
             key={i}
             onClick={() => changePage(i + 1)}
@@ -117,6 +113,6 @@ function Apartamente() {
       </div>
     </>
   );
-}
+};
 
 export default Apartamente;

@@ -1,22 +1,26 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import "./index.css";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import propertyReducer from "./redux/propertyReducer";
+import store from "./redux/store";
+import { PropertyProvider } from "./Rezidential/Apartamente/PropertyContext";
 
-const store = createStore(propertyReducer);
+const container = document.getElementById("root");
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <PropertyProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </PropertyProvider>
+      </Provider>
+    </React.StrictMode>
+  );
+}

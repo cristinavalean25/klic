@@ -10,6 +10,9 @@ import SpatiiComerciale from "./Comercial/SpatiiComerciale";
 import Case from "./Rezidential/Case/Case";
 import Rezidential from "./Rezidential/Rezidential";
 import ApartamenteDetalii from "./Rezidential/Apartamente/ApartamenteDetalii";
+import ListaAgenti from "./Agenti/ListaAgenti";
+import Zone from "./Zone/Zone";
+import ZoneDetail from "./Zone/ZoneDetail";
 
 const App = () => {
   return (
@@ -18,7 +21,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/Template" element={<Template />} />
         <Route path="/WhyKlic" element={<WhyKlic />} />
-        <Route path="/ZoneSibiu" element={<ZoneSibiu />} />
+        <Route path="/ZoneSibiu" element={<ZoneSibiu />}></Route>
         <Route path="/News" element={<News />} />
         <Route path="/Footer" element={<Footer />} />
         <Route path="/Rezidential" element={<Rezidential />} />
@@ -26,6 +29,9 @@ const App = () => {
         <Route path="/Case" element={<Case />} />
         <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
         <Route path="/apartament/:id" element={<ApartamenteDetalii />} />
+        <Route path="ListaAgenti" element={<ListaAgenti />} />
+        <Route path="/zone" element={<Zone />} />
+        <Route path="/zone/:id" element={<ZoneDetail />} />
       </Routes>
     </>
   );
