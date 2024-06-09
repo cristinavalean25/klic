@@ -11,6 +11,7 @@ export type PropertyContextType = {
   lands: PropertyDetails[];
   loading: boolean;
   error: string | null;
+  totalProperties: number; // Add totalProperties to context type
   fetchProperties: () => Promise<void>;
 };
 
@@ -39,6 +40,7 @@ const fetchPageProperties = async (
     ...config,
     params: { ...config.params, page },
   });
+  console.log(`Fetching page ${page}:`, response.data); // Log the response for each page
   return response.data.data;
 };
 
@@ -54,6 +56,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   const [lands, setLands] = useState<PropertyDetails[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [totalProperties, setTotalProperties] = useState<number>(0); // Add state for total properties
 
   const fetchProperties = async () => {
     try {
@@ -63,14 +66,18 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       const start = performance.now(); // Start timing
 
       const {
-        data: { last_page: totalPages },
+        data: { last_page: totalPages, total },
       } = await axios.get(`/api/sites/v1/properties`, config);
+
+      console.log(`Total pages: ${totalPages}, Total properties: ${total}`); // Log total pages and total properties
 
       const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
         fetchPageProperties(i + 1, config)
       );
       const results = await Promise.all(fetchPromises);
       const allProperties = results.flat();
+
+      setTotalProperties(total); // Set the total number of properties
 
       // Log property types to debug filtering
       console.log(
@@ -81,25 +88,25 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       // Sort properties by idnum in descending order
       allProperties.sort((a, b) => b.idnum - a.idnum);
 
-      setProperties(allProperties);
-
-      // Filter properties by type
+      // Filter properties by type and for sale status
       const apartments = allProperties.filter(
-        (property) => property.tiplocuinta === "apartament"
-      );
-      const apartmentsForSale = apartments.filter(
-        (property) => property.devanzare === 1
+        (property) =>
+          property.tiplocuinta === "apartament" && property.devanzare !== 1
       );
       const houses = allProperties.filter(
         (property) =>
-          property.tiplocuinta === "casa" || property.tiplocuinta === "vila"
+          (property.tiplocuinta === "casa" ||
+            property.tiplocuinta === "vila") &&
+          property.devanzare === 1
       );
       const lands = allProperties.filter(
-        (property) => property.tiplocuinta === "teren"
+        (property) =>
+          property.tiplocuinta === "teren" && property.devanzare === 1
       );
 
+      setProperties(allProperties);
       setApartments(apartments);
-      setApartmentsForSale(apartmentsForSale);
+      setApartmentsForSale(apartments); // Since apartments now only contain those for sale
       setHouses(houses);
       setLands(lands);
 
@@ -109,7 +116,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       );
       console.log("All properties: ", allProperties); // Add this log
       console.log("Filtered apartments: ", apartments); // Add this log
-      console.log("Filtered apartments for sale: ", apartmentsForSale); // Add this log
+      console.log("Filtered apartments for sale: ", apartments); // Add this log
       console.log("Filtered houses: ", houses); // Add this log
       console.log("Filtered lands: ", lands); // Add this log
     } catch (err) {
@@ -134,6 +141,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         lands,
         loading,
         error,
+        totalProperties, // Add totalProperties to context value
         fetchProperties,
       }}
     >

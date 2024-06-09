@@ -1,27 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../CssPages/WhyKlic.css";
-import imgBackground from "../Images/ab.jpg";
+import imgBackground from "../Zone/zoneImg/caleapoplacii.jpg";
 import { Slide } from "../types/SlideType";
 import { Carousel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 function WhyKlic() {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + detailsSlider.length) % detailsSlider.length
-    );
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      nextSlide();
-    }, 5000);
-
-    return () => clearInterval(intervalId);
-  }, [currentSlide]);
 
   const detailsSlider: Slide[] = [
     {
@@ -46,6 +33,19 @@ function WhyKlic() {
         "Toți membrii echipei noastre sunt dedicați să contribuie activ la bunăstarea comunităților locale în care trăim, lucrăm și ne bucurăm de viață împreună. ",
     },
   ];
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % detailsSlider.length);
+  }, [detailsSlider.length]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [nextSlide]);
+
   return (
     <>
       <div className="white-container"></div>
@@ -56,19 +56,18 @@ function WhyKlic() {
             alt="Background"
             className="background-image"
           />
-
           <div className="overlay-text-why">
             <div className="top-section">
               <div className="about-us">
                 Despre noi
                 <div className="arrow">
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                  <FontAwesomeIcon icon={faArrowAltCircleRight as IconProp} />
                 </div>
               </div>
               <div className="our-team">
                 Echipa noastra
                 <div className="arrow">
-                  <FontAwesomeIcon icon={faArrowAltCircleRight} />
+                  <FontAwesomeIcon icon={faArrowAltCircleRight as IconProp} />
                 </div>
               </div>
             </div>

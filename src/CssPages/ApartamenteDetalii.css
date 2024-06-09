@@ -42,7 +42,11 @@
 .detalii-zona {
   background-color: rgba(51, 83, 132, 0.6);
   width: 100%;
+  max-height: 100px;
   padding: 10px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .title-propriety {
@@ -138,6 +142,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+ 
 }
 
 .detail-item span {
@@ -228,15 +233,13 @@
 }
 
 .descriere-proprietate {
-  font-family: 'SohneBreitNormal', sans-serif;
+  width: 95%;
   font-size: 17px;
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  justify-content: center;
-  padding-left: 5%;
+  justify-content: space-between;
   gap: 2rem;
-  color: #385170;
 }
 
 .container-gol {
@@ -244,9 +247,16 @@
 }
 
 .descriere-text {
-  width: 50%;
+  width: 60%;
   text-align: justify;
   font-family: 'Roboto-Light', sans-serif;
+  font-family: georgia, serif;
+  font-kerning: normal;
+  font-weight: 400;
+  font-feature-settings:  "kern", "liga", "clig", "calt";
+  word-wrap: break-word;
+  color: rgba(0, 0, 0, .8);
+  padding-top: 2%;
 }
 
 .det-agent {
@@ -255,7 +265,7 @@
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
-  padding-left: 7%;
+ 
 }
 
 .poza-agent {
@@ -273,41 +283,13 @@
   color: #13205E;
 }
 
-.property-details, .dotari, .utilitati, .general {
-  padding: 20px;
-  font-family: 'SohneBreitNormal', sans-serif;
-  width: 80%;
-  margin: 0 auto;
-  padding-left: 5%;
-  padding-right: 3%;
-  margin-bottom: 20px; /* Spacing between sections */
+.show-more-button {
+  background-color: #13205E;
+  color: #fff;
+  border: transparent;
+  padding: 7px;
+  cursor: pointer;
 }
-
-.dotari, .utilitati, .general {
-  border-bottom: 1px solid #ccc; /* Grey line under sections */
-}
-
-.details-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  align-items: stretch;
-  width: 85%;
-  margin: 0 auto;
-}
-
-.detail {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Align items in the center */
-  width: 100%;
-  border-bottom: 1px solid #ccc; /* Grey line under each characteristic */
-  padding: 5px 0;
-}
-
-
-
-
 
 @media (max-width: 1024px) {
   .details-grid {

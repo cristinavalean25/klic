@@ -41,7 +41,7 @@ function Proprieties() {
       link: "/",
       imgSrc: imgInchirieri,
       textTitle: "INCHIRIEIRI",
-      textCase: "REXIDENTIALE - COMERCIALE ",
+      textCase: "REZIDENTIALE - COMERCIALE ",
       textAp: "",
       textTere: "",
       textVacantion: "",
@@ -81,6 +81,9 @@ function Proprieties() {
                   <div className="image-text">
                     <p className="title-prop">{proprietate.textTitle}</p>
                     <p className="title-prop">{proprietate.textCase}</p>
+                    {proprietate.textTere && (
+                      <p className="title-prop">{proprietate.textTere}</p>
+                    )}
                   </div>
                 </div>
               </Link>

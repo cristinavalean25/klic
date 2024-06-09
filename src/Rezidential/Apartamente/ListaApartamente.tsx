@@ -19,7 +19,7 @@ const ListaApartamente: React.FC<ListaApartamenteProps> = ({
   const handleClick = () => {
     if (idnum) {
       localStorage.setItem("currentPage", currentPage.toString());
-      navigate(`/apartament/${idnum}`);
+      navigate(`/apartament/${idnum}`); // Ensure this path is consistent
     }
   };
 

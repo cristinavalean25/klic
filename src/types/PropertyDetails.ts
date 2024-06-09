@@ -87,6 +87,11 @@ export interface PropertyDetails {
   agent_info: Agent;
 
   dotari_values: string[];
-  general_value: string[]
-  general: string[]
+  general_value: string[];
+  general: string[];
+  teren_values: string[];
+  finisaje_values: string[];
+  climatizare_values: string[];
+  sistem_incalzire_values: string[];
+
 }

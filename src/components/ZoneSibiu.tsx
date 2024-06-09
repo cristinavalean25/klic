@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import "../CssPages/ZoneSibiu.css";
-import mihaiViteazul from "../Images/mihai-viteazul.png";
-import centru from "../Images/centru.jpg";
-import Stejari from "../Images/3-stejari.jpg";
-import cedonia from "../Images/cedonia.jpg";
+import mihaiViteazul from "../Images/m.png";
+import centruistoric from "../Zone/zoneImg/piatamare.jpg";
+import Stejari from "../Zone/zoneImg/treistejari.jpg";
+import cedonia from "../Zone/zoneImg/cedonia.jpg";
+import rahovei from "../Zone/zoneImg/rahovei.jpg";
+import zone from "../Zone/zoneImg/toatezonele.webp";
 
 function ZoneSibiu() {
   const zoneSibiu = [
@@ -14,7 +16,7 @@ function ZoneSibiu() {
     },
     {
       id: 2,
-      imgSrc: centru,
+      imgSrc: centruistoric,
       titleZone: "Centrul Istoric",
     },
     {
@@ -29,7 +31,12 @@ function ZoneSibiu() {
     },
     {
       id: 5,
-      imgSrc: mihaiViteazul,
+      imgSrc: rahovei,
+      titleZone: "Rahovei",
+    },
+    {
+      id: 5,
+      imgSrc: zone,
       titleZone: "Toate Zonele",
       route: "/zone",
     },

@@ -6,6 +6,9 @@ import "../../CssPages/Apartamente.css";
 import "../../CssPages/ApartamenteDetalii.css";
 import { useNavigate } from "react-router-dom";
 import { usePropertyContext } from "./usePropertyContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const Apartamente: React.FC = () => {
   const navigate = useNavigate();
@@ -64,18 +67,39 @@ const Apartamente: React.FC = () => {
                 className={`lista-apartamente-item ${
                   isFullWidth ? "special-index" : ""
                 }`}
-                onClick={() =>
-                  navigate(`/apartamente-detalii/${property.idnum}`)
+                onClick={
+                  () => navigate(`/apartament/${property.idnum}`) // Ensure this path is consistent
                 } // Add click event for redirection
               >
                 {isFullWidth ? (
                   <div className="special-container">
                     <div className="details">
                       <h5 className="title">{property.titlu.ro}</h5>
-                      <p className="price">€{property.pretvanzare}</p>
+
+                      <div className="detail-item">
+                        <p className="price">€{property.pretvanzare}</p>
+                      </div>
                       <div className="extra-info">
-                        <p>{property.nrcamere} camere</p>
-                        <p>P{property.idnum}</p>
+                        <div className="detail-item">
+                          <FontAwesomeIcon icon={faRulerCombined as IconProp} />
+                          <span>{property.suprafataconstruita} m²</span>
+                        </div>
+
+                        <div className="detail-item">
+                          <FontAwesomeIcon icon={faBed as IconProp} />
+                          <span
+                            style={{
+                              textTransform: "uppercase",
+                              marginLeft: 10,
+                            }}
+                          >
+                            {property.nrcamere} camere
+                          </span>
+                        </div>
+
+                        <p>P {property.idnum}</p>
+
+                        <div className="detail-item"></div>
                       </div>
                     </div>
                     <div className="image-container">

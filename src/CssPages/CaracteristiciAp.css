@@ -1,0 +1,125 @@
+.property-details {
+  padding: 20px;
+  font-family: 'SohneBreitNormal', sans-serif;
+  width: 95%;
+  margin: 0 auto;
+  padding-left: 5%;
+  padding-right: 3%;
+  margin-bottom: 20px; /* Spacing between sections */
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between; /* Ensure space between title and button */
+  align-items: center; /* Vertically align items in the center */
+  width: 85%;
+  margin: 0 auto;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between; /* Aligned items with space-between */
+  align-items: center; /* Align items in the center */
+  width: 100%;
+  border-bottom: 1px solid #ccc; /* Grey line under each characteristic */
+  padding: 5px 0;
+}
+
+.detail .label {
+  flex: 0 0 150px; /* Fixed width for the label */
+}
+
+.detail .value {
+  flex: 1; /* Flex-grow for the value */
+  text-align: right; /* Align value to the right */
+}
+
+.dotari-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc; /* Grey line under each item */
+  padding: 5px 0;
+}
+
+.dotari-item .label {
+  flex: 0 0 150px; /* Fixed width for the label */
+  color: #13205E;
+  font-weight: 400;
+}
+
+.dotari-item .value {
+  flex: 1; /* Flex-grow for the value */
+  text-align: right; /* Align value to the right */
+}
+
+.property-details .dotari {
+  border-bottom: 1px solid #ccc; /* Grey line under sections */
+}
+
+.property-details .other-details {
+  display: none; /* Hidden by default */
+}
+
+.property-details.show-details .other-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 85%;
+  margin: 0 auto;
+}
+
+button.toggle-details {
+  width: 150px;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #13205E;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button.toggle-details:hover {
+  background-color: #0f1a4d;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .details-grid,
+  .property-details.show-details .other-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .details-grid,
+  .property-details.show-details .other-details {
+    grid-template-columns: 1fr;
+  }
+
+  .detail .label {
+    flex: 0 0 100px; /* Adjust width for smaller screens */
+  }
+
+  .detail .value {
+    text-align: left; /* Align value to the left for better readability on small screens */
+  }
+
+  .dotari-item .label {
+    flex: 0 0 100px; /* Adjust width for smaller screens */
+  }
+
+  .dotari-item .value {
+    text-align: left; /* Align value to the left for better readability on small screens */
+  }
+}

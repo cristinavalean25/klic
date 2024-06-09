@@ -1,4 +1,4 @@
-
+/* General container for each property item */
 .lista-apartamente-item {
   width: 100%;
   height: 400px; /* Set a consistent height for each grid item */
@@ -12,7 +12,7 @@
 }
 
 .container {
-  width: 90%; /* Set container width to 80% */
+  width: 90%; /* Set container width to 90% */
   margin: 0 auto; /* Center on the page */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -27,6 +27,8 @@
   position: relative; /* Change to relative for proper stacking context */
   z-index: 2; /* Ensure it's above other elements */
   height: 600px; /* Set the height of the special container */
+  overflow: visible; /* Allow overflow */
+  margin-bottom: 10%;
 }
 
 .special-container {
@@ -36,13 +38,24 @@
   padding: 20px;
   height: 100%; /* Full height of the container */
   box-sizing: border-box;
+  position: relative; /* Added relative positioning */
+  width: 100%; /* Ensure it spans the full width */
+  margin-bottom: 40px; /* Add margin bottom to create space */
 }
 
 .special-container .details {
   color: white;
-  width: 55%;
+  width: 65%;
+  padding-left: 7%;
   padding-right: 20px;
-  z-index: 2;
+  z-index: 3; /* Ensure it's above the image */
+  position: relative; /* Changed to relative */
+}
+
+.line {
+  width: 15%;
+  border: 3px;
+  z-index: 7;
 }
 
 .special-container .details .title {
@@ -60,15 +73,16 @@
 
 .special-container .details .extra-info {
   font-size: 16px;
+  text-transform: uppercase;
 }
 
 .special-container .image-container {
-  width: 60%;
-  position: relative;
-  width: 70%;
-  height: 100%;
+  width: 75%; /* Adjusted width to make the image smaller */
+  position: absolute;
+  right: 0; /* Ensure it is aligned to the right */
+  height: 95%; /* Adjusted height to make the image smaller */
   z-index: 1;
-  
+  bottom: -70px; /* Push the image down */
 }
 
 .special-container .image-container img {
@@ -252,5 +266,7 @@
   .special-container .image-container {
     width: 100%;
     height: auto; /* Adjust height for smaller screens */
+    position: relative;
+    bottom: 0; /* Reset bottom for smaller screens */
   }
 }

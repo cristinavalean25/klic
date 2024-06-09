@@ -23,13 +23,13 @@ function Cifre() {
         });
 
         if (response.status === 200) {
+          console.log("API response:", response.data); // Log the API response
           setTotalProperties(response.data.total);
         } else {
           throw new Error("Failed to fetch properties");
         }
 
         setIsLoading(false);
-        console.log(totalProperties);
       } catch (error) {
         console.error("Error fetching properties:", error);
         setIsLoading(false);
@@ -38,6 +38,10 @@ function Cifre() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("Total Properties:", totalProperties); // Log the totalProperties after state is set
+  }, [totalProperties]);
 
   const businessDetails = [
     {

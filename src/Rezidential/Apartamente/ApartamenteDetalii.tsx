@@ -7,7 +7,11 @@ import Navbar from "../../components/Navbar";
 import SecondDetails from "./SecondDetails";
 import "../../CssPages/ApartamenteDetalii.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRulerCombined,
+  faBed,
+  faShower,
+} from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import CaracteristiciAp from "./CaracteristiciAp";
 
@@ -45,6 +49,7 @@ const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
 const ApartamenteDetalii: React.FC = () => {
   const [property, setProperty] = useState<PropertyDetails | null>(null);
   const [urianAgent, setUrianAgent] = useState<Agent | null>(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const { id } = useParams();
   const idnum = id ? parseInt(id) : 0;
   const caracteristiciRef = useRef<HTMLDivElement>(null);
@@ -84,6 +89,8 @@ const ApartamenteDetalii: React.FC = () => {
     fetchPropertyDetails();
   }, [idnum]);
 
+  const descriptionParagraphs = property?.descriere.ro?.split("\n") || [];
+
   return (
     <>
       <Navbar />
@@ -103,7 +110,13 @@ const ApartamenteDetalii: React.FC = () => {
                 <div className="detail-item">
                   <FontAwesomeIcon icon={faBed as IconProp} />
                   <span style={{ textTransform: "uppercase" }}>
-                    {property.nrcamere} camere
+                    {property.nrcamere}
+                  </span>
+                </div>
+                <div className="detail-item">
+                  <FontAwesomeIcon icon={faShower as IconProp} />
+                  <span style={{ textTransform: "uppercase" }}>
+                    {property.nrbai}
                   </span>
                 </div>
                 <div className="detail-item">
@@ -134,13 +147,23 @@ const ApartamenteDetalii: React.FC = () => {
       />
 
       <div className="descriere-proprietate">
-        <div className="contaiiner-gol"></div>
+        <div className="container-gol"></div> {/* Typo corrected */}
         <div className="descriere-text">
-          {property?.descriere.ro?.split("\n").map((paragraph, index) => (
-            <p key={index} className="descriere-tx">
-              {paragraph}
-            </p>
-          ))}
+          {descriptionParagraphs
+            .slice(0, showFullDescription ? descriptionParagraphs.length : 10) // Show 10 paragraphs initially
+            .map((paragraph, index) => (
+              <p key={index} className="descriere-tx">
+                {paragraph}
+              </p>
+            ))}
+          {descriptionParagraphs.length > 10 && ( // Show button if there are more than 10 paragraphs
+            <button
+              className="show-more-button"
+              onClick={() => setShowFullDescription(!showFullDescription)}
+            >
+              {showFullDescription ? "Show Less" : "Show More"}
+            </button>
+          )}
         </div>
         <div className="det-agent">
           {urianAgent && (
