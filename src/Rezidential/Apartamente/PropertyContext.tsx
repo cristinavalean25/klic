@@ -11,8 +11,9 @@ export type PropertyContextType = {
   lands: PropertyDetails[];
   loading: boolean;
   error: string | null;
-  totalProperties: number; // Add totalProperties to context type
+  totalProperties: number;
   fetchProperties: () => Promise<void>;
+  lastApartment: PropertyDetails | null; // Add lastApartment to context type
 };
 
 const PropertyContext = createContext<PropertyContextType | undefined>(
@@ -40,7 +41,7 @@ const fetchPageProperties = async (
     ...config,
     params: { ...config.params, page },
   });
-  console.log(`Fetching page ${page}:`, response.data); // Log the response for each page
+  console.log(`Fetching page ${page}:`, response.data);
   return response.data.data;
 };
 
@@ -56,20 +57,24 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   const [lands, setLands] = useState<PropertyDetails[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [totalProperties, setTotalProperties] = useState<number>(0); // Add state for total properties
+  const [totalProperties, setTotalProperties] = useState<number>(0);
+
+  const [lastApartment, setLastApartment] = useState<PropertyDetails | null>(
+    null
+  ); // Add state for last apartment
 
   const fetchProperties = async () => {
     try {
       setLoading(true);
       setError(null);
 
-      const start = performance.now(); // Start timing
+      const start = performance.now();
 
       const {
         data: { last_page: totalPages, total },
       } = await axios.get(`/api/sites/v1/properties`, config);
 
-      console.log(`Total pages: ${totalPages}, Total properties: ${total}`); // Log total pages and total properties
+      console.log(`Total pages: ${totalPages}, Total properties: ${total}`);
 
       const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
         fetchPageProperties(i + 1, config)
@@ -77,9 +82,8 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       const results = await Promise.all(fetchPromises);
       const allProperties = results.flat();
 
-      setTotalProperties(total); // Set the total number of properties
+      setTotalProperties(total);
 
-      // Log property types to debug filtering
       console.log(
         "Property types:",
         allProperties.map((property) => property.tiplocuinta)
@@ -104,21 +108,35 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
           property.tiplocuinta === "teren" && property.devanzare === 1
       );
 
+      // Find the top apartment
+      const topApartment = allProperties.find(
+        (property) =>
+          property.tiplocuinta === "apartament" && property.top === 1
+      );
+
+      // Find the last apartment
+      const lastApartment = allProperties.find(
+        (property) => property.tiplocuinta === "apartament"
+      );
+
       setProperties(allProperties);
       setApartments(apartments);
-      setApartmentsForSale(apartments); // Since apartments now only contain those for sale
+      setApartmentsForSale(apartments);
       setHouses(houses);
       setLands(lands);
+      setLastApartment(lastApartment || null);
 
-      const end = performance.now(); // End timing
+      const end = performance.now();
       console.log(
         `Time taken to load properties: ${(end - start) / 1000} seconds`
       );
-      console.log("All properties: ", allProperties); // Add this log
-      console.log("Filtered apartments: ", apartments); // Add this log
-      console.log("Filtered apartments for sale: ", apartments); // Add this log
-      console.log("Filtered houses: ", houses); // Add this log
-      console.log("Filtered lands: ", lands); // Add this log
+      console.log("All properties: ", allProperties);
+      console.log("Filtered apartments: ", apartments);
+      console.log("Filtered apartments for sale: ", apartments);
+      console.log("Filtered houses: ", houses);
+      console.log("Filtered lands: ", lands);
+      console.log("Top apartment: ", topApartment);
+      console.log("Last apartment: ", lastApartment); // Log the last apartment
     } catch (err) {
       console.error("Error loading properties", err);
       setError("Error loading properties");
@@ -141,8 +159,9 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         lands,
         loading,
         error,
-        totalProperties, // Add totalProperties to context value
+        totalProperties,
         fetchProperties,
+        lastApartment, // Add lastApartment to context value
       }}
     >
       {children}

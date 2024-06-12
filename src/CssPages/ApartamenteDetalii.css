@@ -142,7 +142,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
- 
 }
 
 .detail-item span {
@@ -233,7 +232,7 @@
 }
 
 .descriere-proprietate {
-  width: 95%;
+  width: 90%;
   font-size: 17px;
   display: flex;
   flex-direction: row;
@@ -243,17 +242,17 @@
 }
 
 .container-gol {
-  width: 25%;
+  width: 5%;
 }
 
 .descriere-text {
-  width: 60%;
+  width: 53%;
   text-align: justify;
   font-family: 'Roboto-Light', sans-serif;
   font-family: georgia, serif;
   font-kerning: normal;
   font-weight: 400;
-  font-feature-settings:  "kern", "liga", "clig", "calt";
+  font-feature-settings: "kern", "liga", "clig", "calt";
   word-wrap: break-word;
   color: rgba(0, 0, 0, .8);
   padding-top: 2%;
@@ -265,7 +264,6 @@
   flex-direction: row;
   align-items: stretch;
   justify-content: center;
- 
 }
 
 .poza-agent {
@@ -277,10 +275,18 @@
 
 .contact-agent {
   color: #385170;
+  align-items: center;
+  justify-content: center;
+  display: flexbox;
 }
 
 .contact-agent span {
   color: #13205E;
+}
+
+.agent-info-name {
+  width: 100%;
+ font-family: Sohne Breit, sans-serif;;
 }
 
 .show-more-button {
@@ -291,28 +297,86 @@
   cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-  .details-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.map-container {
+  width: 76%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+/* Responsive adjustments for medium screens */
+@media (max-width: 1024px) {
+  .prop-details {
+    width: 80%;
+    left: 10%;
+    top: 20%;
+    padding: 10px;
   }
 
-  .slide {
-    min-width: 250px; /* Reduced width for smaller screens */
-    height: 150px; /* Reduced height for smaller screens */
+  .title-property {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .title-property,
+  .category-details,
+  .additional-details {
+    text-align: left;
+  }
+
+  .category-details {
+    font-size: 12px;
+  }
+
+  .imageContainerApDetails {
+    width: 100%;
+    height: auto;
+  }
+
+  .ap-det-images {
+    height: auto;
+    object-fit: cover;
+  }
+
+  .second-details {
+    margin-top: 1rem;
+  }
+
+  .property-title {
+    font-size: 2rem;
+  }
+
+  .property-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .action-buttons {
+    width: 90%;
+    margin: 0;
+  }
+
+  .actions-div {
+    width: 90%;
+    margin-top: 1rem;
+  }
+
+  .line-gallery {
+    width: 50%;
   }
 
   .descriere-proprietate {
     flex-direction: column;
-    padding-left: 20px; /* Reduce padding for smaller screens */
-    padding-right: 20px; /* Reduce padding for smaller screens */
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .container-gol {
+    display: none;
   }
 
   .descriere-text {
@@ -321,86 +385,155 @@
 
   .det-agent {
     width: 100%;
-    flex-direction: row; /* Display agents in a row */
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping */
   }
 
   .det-agent > div {
-    width: 45%; /* Adjust the width of each agent container */
-    margin: 10px; /* Add margin for spacing */
-  }
-
-  .poza-agent {
-    width: 175px; /* Adjust image width */
-    height: 175px; /* Adjust image height */
-    object-fit: contain;
+    width: 100%;
     margin-bottom: 10px;
   }
 
-  .apDetails {
+  .poza-agent {
+    width: 150px;
     height: auto;
-    padding-bottom: 20px;
   }
 
-  .imageContainerApDetails {
-    position: static;
+  .map-container {
     width: 100%;
-    height: auto;
   }
+}
 
+/* Responsive adjustments for small screens */
+@media (max-width: 768px) {
   .prop-details {
     width: 90%;
-    position: static;
-    top: 0;
-    left: 0;
-    margin-top: 20px;
-    padding: 0;
+    left: 5%;
+    top: 15%;
   }
 
   .title-property {
     font-size: 24px;
     line-height: 32px;
+    margin-bottom: 16px;
+  }
+
+  .category-details {
+    font-size: 10px;
+    padding: 5px 7px;
   }
 
   .additional-details {
     flex-direction: row;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: space-around;
+    margin-top: 0.5rem;
   }
 
   .second-details {
-    margin-top: 10px;
+    padding: 0.5rem;
   }
 
-  .details-grid {
-    grid-template-columns: 1fr;
+  .property-title {
+    font-size: 1.5rem;
+  }
+
+  .property-actions {
+    flex-direction: column;
+  }
+
+  .action-buttons,
+  .actions-div {
+    width: 100%;
+  }
+
+  .line-gallery {
+    width: 100%;
+    height: 2px;
+  }
+
+  .descriere-proprietate {
+    width: 100%;
+    padding: 0 0.5rem;
+  }
+
+  .descriere-text {
+    padding-top: 1%;
+  }
+
+  .det-agent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .det-agent > div {
+    width: 100%;
+  }
+
+  .poza-agent {
+    width: 120px;
+    height: auto;
+  }
+
+  .map-container {
+    width: 100%;
+    padding: 0 0.5rem;
   }
 }
 
-/* Horizontal scroll */
+/* Responsive adjustments for extra small screens */
+@media (max-width: 480px) {
+  .prop-details {
+    top: 10%;
+  }
 
-.image-slider::-webkit-scrollbar {
-  width: 10px; /* Lățimea scrollbar-ului */
-  height: 8px;
-}
+  .title-property {
+    font-size: 20px;
+    line-height: 28px;
+    margin-bottom: 14px;
+  }
 
-.image-slider::-webkit-scrollbar-track {
-  background: transparent; /* Fundalul scrollbar-ului */
-}
+  .category-details {
+    font-size: 9px;
+    padding: 4px 6px;
+  }
 
-.image-slider::-webkit-scrollbar-thumb {
-  background: #13205E; /* Culoarea thumb-ului (partea mobilă a scrollbar-ului) */
-  border-radius: 2px; /* Unghiurile thumb-ului */
-  margin-top: 10px;
-}
+  .additional-details {
+    gap: 0.5rem;
+  }
 
-.image-slider::-webkit-scrollbar-thumb:hover {
-  background: #13205E; /* Culoarea thumb-ului la hover */
-  margin-top: 10px;
-}
+  .action-buttons,
+  .actions-div {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
 
-.slide:last-child {
-  margin-bottom: 10px; /* Adăugați spațiu între ultimul slide și scrollbar */
+  .line-gallery {
+    width: 100%;
+    height: 1px;
+  }
+
+  .descriere-proprietate {
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+
+  .descriere-text {
+    padding-top: 0.5%;
+  }
+
+  .det-agent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poza-agent {
+    width: 100px;
+    height: auto;
+  }
+
+  .map-container {
+    width: 100%;
+    padding: 0;
+  }
 }

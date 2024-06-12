@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { PropertyDetails } from "../../types/PropertyDetails";
 import "../../CssPages/CaracteristiciAp.css";
 import { valoriDotari, valoriFinisaje, valoriGenerale } from "../../types/Det";
-import Footer from "../../components/Footer";
 
 interface Props {
   property: PropertyDetails | null;
@@ -214,7 +213,6 @@ const CaracteristiciAp: React.FC<Props> = ({ property }) => {
         </div>
         <div className="other-details">{otherDetails}</div>
       </div>
-      <Footer />
     </>
   );
 };

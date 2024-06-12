@@ -1,3 +1,4 @@
+
 import { Agent } from "./Agent";
 
 export interface PropertyDetails {
@@ -45,6 +46,11 @@ export interface PropertyDetails {
   localitate: string;
   judet: string;
   zona: string;
+  coordonateleZona: {
+    lat: number;
+    lng: number;
+    radius: number; // Raza în metri pentru a desena zona
+  };
   caroiaj: string;
   devanzare: number;
   monedavanzare: string;
@@ -56,15 +62,10 @@ export interface PropertyDetails {
   images?: { src: string; alt: string }[];
   top: number;
   pole: number;
-  custom1: string;
-  custom2: string;
-  portals: {
-    id: number;
-    name: string;
-    url: string;
-    active: number;
-  }[];
-  tip: string;
+  custom1?: string;
+  custom2?: string;
+  portals: Portal[];
+  tip?: string;
   stadiuconstructie_value: string;
   tipconstructie_value: string;
   starefinisaje_value: string;
@@ -86,6 +87,8 @@ export interface PropertyDetails {
   listingType: string;
   agent_info: Agent;
 
+ 
+
   dotari_values: string[];
   general_value: string[];
   general: string[];
@@ -94,4 +97,10 @@ export interface PropertyDetails {
   climatizare_values: string[];
   sistem_incalzire_values: string[];
 
+}
+
+
+export interface Portal {
+  isTop: boolean;
+  // other portal properties
 }

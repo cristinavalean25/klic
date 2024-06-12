@@ -7,13 +7,11 @@ import Navbar from "../../components/Navbar";
 import SecondDetails from "./SecondDetails";
 import "../../CssPages/ApartamenteDetalii.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faRulerCombined,
-  faBed,
-  faShower,
-} from "@fortawesome/free-solid-svg-icons";
+import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import CaracteristiciAp from "./CaracteristiciAp";
+import MapComponent from "../../Maps/MapComponent";
+import LastApartament from "./LastApartament";
 
 const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
   agent,
@@ -23,8 +21,8 @@ const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
     <img src={agent.src} alt="Poza agentului" className="poza-agent" />
     <div style={{ width: "200px", gap: 20 }}>
       <h3 style={{ color: "#13205E", fontWeight: "bold" }}>{title}</h3>
-      <p>Nume: {agent.nume}</p>
-      <p>
+      <p className="agent-info-name">Nume: {agent.nume}</p>
+      <p className="agent-info-name">
         Email:{" "}
         <span
           style={{ cursor: "pointer" }}
@@ -33,7 +31,7 @@ const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
           {agent.email}
         </span>
       </p>
-      <p>
+      <p className="agent-info-name">
         Telefon:{" "}
         <span
           style={{ cursor: "pointer" }}
@@ -110,13 +108,7 @@ const ApartamenteDetalii: React.FC = () => {
                 <div className="detail-item">
                   <FontAwesomeIcon icon={faBed as IconProp} />
                   <span style={{ textTransform: "uppercase" }}>
-                    {property.nrcamere}
-                  </span>
-                </div>
-                <div className="detail-item">
-                  <FontAwesomeIcon icon={faShower as IconProp} />
-                  <span style={{ textTransform: "uppercase" }}>
-                    {property.nrbai}
+                    {property.nrcamere} camere
                   </span>
                 </div>
                 <div className="detail-item">
@@ -147,14 +139,12 @@ const ApartamenteDetalii: React.FC = () => {
       />
 
       <div className="descriere-proprietate">
-        <div className="container-gol"></div> {/* Typo corrected */}
+        <div className="container-gol"></div>
         <div className="descriere-text">
           {descriptionParagraphs
             .slice(0, showFullDescription ? descriptionParagraphs.length : 10) // Show 10 paragraphs initially
             .map((paragraph, index) => (
-              <p key={index} className="descriere-tx">
-                {paragraph}
-              </p>
+              <p key={index}>{paragraph}</p>
             ))}
           {descriptionParagraphs.length > 10 && ( // Show button if there are more than 10 paragraphs
             <button
@@ -180,6 +170,21 @@ const ApartamenteDetalii: React.FC = () => {
 
       <div id="caracteristici" ref={caracteristiciRef}>
         <CaracteristiciAp property={property} />
+      </div>
+
+      <div className="map-container">
+        {property && property.zona ? (
+          <MapComponent
+            zona={property.zona}
+            radius={1000} // Setează raza dorită pentru zonă, de exemplu 1000 metri
+          />
+        ) : (
+          <div>Loading map...</div>
+        )}
+      </div>
+
+      <div>
+        <LastApartament />
       </div>
     </>
   );
