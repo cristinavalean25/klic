@@ -1,0 +1,128 @@
+.container-case {
+  padding: 20px;
+  width: 90%;
+  margin: 0 auto; /* Centers the container */
+}
+
+.houses-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates a 2-column grid */
+  gap: 20px;
+}
+
+.house-card {
+  position: relative;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-image-case {
+  position: relative;
+}
+
+.property-image-case img {
+  width: 100%;
+  height: 400px; /* Set a fixed height for all images */
+  object-fit: cover;
+}
+
+.overlay-lista-case {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.details-case {
+  display: none;
+}
+
+.house-card:hover .details-case {
+  display: block;
+  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0; /* Show at the bottom on hover */
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.house-card:hover .overlay-lista-case {
+  opacity: 0; /* Hide the title overlay when hovering */
+}
+
+.special-container-case {
+  display: flex;
+  flex-direction: row; /* Ensure the image is on the right */
+  width: 100%;
+  background-color: #001f3f; /* Blue background color */
+  color: white;
+  padding: 3%;
+  box-sizing: border-box;
+  align-items: center;
+  position: relative; /* For the title to overlap the image */
+}
+
+.special-container-details {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.special-container-image {
+  flex: 0 0 65%;
+  text-align: right;
+  position: relative; /* Added for positioning */
+}
+
+.special-container-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.special-container-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 1.2em;
+  z-index: 2;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #0056b3;
+}
+
+.pagination button:disabled {
+  background: #ddd;
+  cursor: default;
+}

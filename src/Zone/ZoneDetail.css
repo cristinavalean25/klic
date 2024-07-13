@@ -1,24 +1,160 @@
 .zone-detail {
-  padding: 20px;
-  color: #13203C;
+  display: flex;
+  height: 100vh;
+  background-color: #13203C;
+  color: white;
+  font-family: "SohneBreitfettNormal", sans-serif;
+}
+
+.zone-info {
+  width: 25%;
+  background-color: #0B152C;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.zone-header {
+  position: relative;
+  z-index: 2;
+  padding-left: 10%;
+}
+
+.zone-title {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.zone-description {
+  max-width: 300px; /* Ajustează această valoare după cum este necesar */
+  white-space: normal;
+  overflow-wrap: break-word;
+  display: block;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Afișează textul pe două rânduri */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.zone-long-description p {
+  margin-bottom: 1em; /* Ajustează spațiul dintre paragrafe */
+}
+
+/* .long-description-zone {
+  text-align: justify;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .4px;
+  line-height: 24px;
+  color: #233356;
+  overflow-wrap: break-word;
+} */
+
+
+.zone-image-container {
+  width: 75%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .zone-image {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.zone-details-population {
+  display: flex;
+  background-color: #0B152C;
+  color: white;
   height: auto;
-  margin-bottom: 20px;
+  margin-top: -150px;
+  font-family: "SohneBreitfettNormal", sans-serif;
 }
 
-.zone-detail-stats {
-  margin-bottom: 20px;
+.container-empty {
+  width: 25%;
+  padding: 20px;
 }
 
-.zone-detail-stats p {
-  margin: 5px 0;
+.zone-stats {
+  width: 75%;
+  height: 300px;
+  max-height: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20px;
 }
 
-.zone-map iframe {
-  width: 100%;
-  height: 450px;
-  border: none;
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 1em;
+  color: #b0b0b0;
+}
+
+.zone-long-description {
+  display: flex;
+  background-color: #efefef;
+  padding: 20px;
+  color: #233356;
+  font-family: Sohne Breit, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .4px;
+  line-height: 24px;
+}
+
+.container-gol-zone {
+  width: 45%;
+  height: auto;
+  padding: 2%;
+}
+
+.zone-image-secondary {
+  width: auto; /* Menține aspectul portrait */
+  height: auto; /* Menține aspectul portrait */
+  max-height: 500px;
+  max-width: 100%;
+  margin-bottom: 10px;
+  object-fit: contain; /* Asigură-te că imaginea este conținută în container */
+}
+
+.title-zone-description {
+  width: 75%;
+}
+
+@media (max-width: 768px) {
+  .zone-detail,
+  .zone-details-population,
+  .zone-long-description {
+    flex-direction: column;
+  }
+
+  .container-empty,
+  .container-gol-zone {
+    display: none;
+  }
+
+  .zone-image-container,
+  .zone-stats,
+  .title-zone-description {
+    width: 100%;
+  }
+
+  .zone-info,
+  .zone-header {
+    width: 100%;
+    text-align: center;
+  }
 }

@@ -4,4 +4,6 @@ export interface ZonesType {
   shortDescription: string;
   longDescription: string;
   imgSrc: string[];
+  titleDescription?: string;
+ 
 }

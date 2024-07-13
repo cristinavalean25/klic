@@ -232,7 +232,7 @@
 }
 
 .descriere-proprietate {
-  width: 90%;
+  width: 100%;
   font-size: 17px;
   display: flex;
   flex-direction: row;
@@ -259,21 +259,24 @@
 }
 
 .det-agent {
-  width: 25%;
+  width: 35%;
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  justify-content: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 0 auto;
 }
 
-.poza-agent {
-  width: 175px; /* Ajustează lățimea imaginii după preferință */
-  height: 350px; /* Ajustează înălțimea imaginii după preferință */
-  object-fit: contain; /* Asigură că imaginea este întotdeauna completă în cadrul dimensiunilor specificate */
-  margin-bottom: 10px; /* Spațiere între imagine și detaliile agentului */
-}
+/* .poza-agent {
+  width: 175px; 
+  height: 350px; 
+  object-fit: contain; 
+  margin-bottom: 10px; 
+} */
 
-.contact-agent {
+/* .contact-agent {
   color: #385170;
   align-items: center;
   justify-content: center;
@@ -287,7 +290,7 @@
 .agent-info-name {
   width: 100%;
  font-family: Sohne Breit, sans-serif;;
-}
+} */
 
 .show-more-button {
   background-color: #13205E;
@@ -385,7 +388,7 @@
 
   .det-agent {
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
 

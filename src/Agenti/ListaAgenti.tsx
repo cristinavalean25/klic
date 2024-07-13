@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AgentList from "./AgentList"; // Import AgentList component
 import { Agent } from "../types/Agent";
 
 const ListaAgenti: React.FC = () => {
@@ -27,25 +28,16 @@ const ListaAgenti: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <div style={{ fontFamily: "SohneBreitHalbfett" }}>
-        {agents.length > 0 ? (
-          <ul>
-            {agents.map((agent) => (
-              <li key={agent.agentid}>
-                <h2>{agent.nume}</h2>
-                <p>Functie: {agent.functie?.ro}</p>{" "}
-                {/* Adjusted to match the actual property */}
-                {/* <p>Telefon: {agent.phone}</p> */}
-                <p>Email: {agent.email}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No agents found</p>
-        )}
-      </div>
-    </>
+    <div style={{ fontFamily: "SohneBreitHalbfett" }}>
+      {agents.length > 0 ? (
+        <AgentList
+          agents={agents}
+          titles={agents.map((agent) => agent.functie?.ro || "Agent")}
+        />
+      ) : (
+        <p>No agents found</p>
+      )}
+    </div>
   );
 };
 

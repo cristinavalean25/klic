@@ -11,7 +11,7 @@ import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import CaracteristiciAp from "./CaracteristiciAp";
 import MapComponent from "../../Maps/MapComponent";
-import LastApartament from "./LastApartament";
+import Footer from "../../components/Footer";
 
 const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
   agent,
@@ -88,6 +88,20 @@ const ApartamenteDetalii: React.FC = () => {
   }, [idnum]);
 
   const descriptionParagraphs = property?.descriere.ro?.split("\n") || [];
+
+  useEffect(() => {
+    console.log("Property zona:", property?.zona);
+  }, [property]);
+
+  const buildAddress = (property: PropertyDetails) => {
+    const addressParts = [];
+    if (property.adresa) addressParts.push(property.adresa);
+    if (property.localitate) addressParts.push(property.localitate);
+    if (property.judet) addressParts.push(property.judet);
+    return addressParts.join(", ");
+  };
+
+  const fullAddress = property ? buildAddress(property) : "";
 
   return (
     <>
@@ -173,9 +187,9 @@ const ApartamenteDetalii: React.FC = () => {
       </div>
 
       <div className="map-container">
-        {property && property.zona ? (
+        {fullAddress ? (
           <MapComponent
-            zona={property.zona}
+            address={fullAddress}
             radius={1000} // Setează raza dorită pentru zonă, de exemplu 1000 metri
           />
         ) : (
@@ -183,9 +197,7 @@ const ApartamenteDetalii: React.FC = () => {
         )}
       </div>
 
-      <div>
-        <LastApartament />
-      </div>
+      <Footer />
     </>
   );
 };

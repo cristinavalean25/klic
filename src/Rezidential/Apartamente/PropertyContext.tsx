@@ -1,19 +1,18 @@
 import React, { createContext, useEffect, useState, ReactNode } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { PropertyDetails } from "../../types/PropertyDetails";
-import { Vila } from "../../types/Vila";
 
 export type PropertyContextType = {
   properties: PropertyDetails[];
   apartments: PropertyDetails[];
   apartmentsForSale: PropertyDetails[];
-  houses: Vila[];
+  houses: PropertyDetails[];
   lands: PropertyDetails[];
   loading: boolean;
   error: string | null;
   totalProperties: number;
   fetchProperties: () => Promise<void>;
-  lastApartment: PropertyDetails | null; // Add lastApartment to context type
+  lastApartment: PropertyDetails | null;
 };
 
 const PropertyContext = createContext<PropertyContextType | undefined>(
@@ -27,7 +26,7 @@ const headers = {
   Authorization: `Basic ${btoa(`${agentId}:${agentPassword}`)}`,
 };
 
-const propertiesPerPage = 500;
+const propertiesPerPage = 50; // Reduced number of properties per page for optimization
 const config: AxiosRequestConfig = {
   headers,
   params: { per_page: propertiesPerPage },
@@ -41,7 +40,7 @@ const fetchPageProperties = async (
     ...config,
     params: { ...config.params, page },
   });
-  console.log(`Fetching page ${page}:`, response.data);
+  console.log(`Fetching page ${page}:`, response.data.data);
   return response.data.data;
 };
 
@@ -53,95 +52,79 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   const [apartmentsForSale, setApartmentsForSale] = useState<PropertyDetails[]>(
     []
   );
-  const [houses, setHouses] = useState<Vila[]>([]);
+  const [houses, setHouses] = useState<PropertyDetails[]>([]);
   const [lands, setLands] = useState<PropertyDetails[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [totalProperties, setTotalProperties] = useState<number>(0);
-
   const [lastApartment, setLastApartment] = useState<PropertyDetails | null>(
     null
-  ); // Add state for last apartment
+  );
 
   const fetchProperties = async () => {
+    const start = performance.now();
     try {
       setLoading(true);
       setError(null);
 
-      const start = performance.now();
-
       const {
         data: { last_page: totalPages, total },
       } = await axios.get(`/api/sites/v1/properties`, config);
-
-      console.log(`Total pages: ${totalPages}, Total properties: ${total}`);
-
-      const fetchPromises = Array.from({ length: totalPages }, (_, i) =>
-        fetchPageProperties(i + 1, config)
-      );
-      const results = await Promise.all(fetchPromises);
-      const allProperties = results.flat();
-
       setTotalProperties(total);
 
-      console.log(
-        "Property types:",
-        allProperties.map((property) => property.tiplocuinta)
-      );
+      const promises = [];
+      for (let page = 1; page <= totalPages; page++) {
+        promises.push(fetchPageProperties(page, config));
+      }
 
-      // Sort properties by idnum in descending order
-      allProperties.sort((a, b) => b.idnum - a.idnum);
+      const allProperties = (await Promise.all(promises)).flat();
 
-      // Filter properties by type and for sale status
-      const apartments = allProperties.filter(
+      const sortedProperties = allProperties.sort((a, b) => b.idnum - a.idnum);
+
+      console.log("All fetched properties: ", sortedProperties);
+
+      const filteredApartments = sortedProperties.filter(
         (property) =>
-          property.tiplocuinta === "apartament" && property.devanzare !== 1
+          property.tip?.toLowerCase() === "apartament" &&
+          property.devanzare !== 1
       );
-      const houses = allProperties.filter(
+      const filteredHouses = sortedProperties.filter(
         (property) =>
-          (property.tiplocuinta === "casa" ||
-            property.tiplocuinta === "vila") &&
+          (property.tip?.toLowerCase() === "casa / vila" ||
+            property.tip?.toLowerCase() === "vila") &&
           property.devanzare === 1
       );
-      const lands = allProperties.filter(
+      const filteredLands = sortedProperties.filter(
         (property) =>
-          property.tiplocuinta === "teren" && property.devanzare === 1
+          property.tip?.toLowerCase() === "teren" && property.devanzare === 1
       );
 
-      // Find the top apartment
-      const topApartment = allProperties.find(
-        (property) =>
-          property.tiplocuinta === "apartament" && property.top === 1
+      const lastApartment = sortedProperties.find(
+        (property) => property.tip?.toLowerCase() === "apartament"
       );
 
-      // Find the last apartment
-      const lastApartment = allProperties.find(
-        (property) => property.tiplocuinta === "apartament"
+      setProperties(sortedProperties);
+      setApartments(filteredApartments);
+      setApartmentsForSale(
+        filteredApartments.filter((property) => property.devanzare === 1)
       );
-
-      setProperties(allProperties);
-      setApartments(apartments);
-      setApartmentsForSale(apartments);
-      setHouses(houses);
-      setLands(lands);
+      setHouses(filteredHouses);
+      setLands(filteredLands);
       setLastApartment(lastApartment || null);
 
-      const end = performance.now();
-      console.log(
-        `Time taken to load properties: ${(end - start) / 1000} seconds`
-      );
-      console.log("All properties: ", allProperties);
-      console.log("Filtered apartments: ", apartments);
-      console.log("Filtered apartments for sale: ", apartments);
-      console.log("Filtered houses: ", houses);
-      console.log("Filtered lands: ", lands);
-      console.log("Top apartment: ", topApartment);
-      console.log("Last apartment: ", lastApartment); // Log the last apartment
+      console.log("Total Properties:", sortedProperties.length);
+      console.log("Filtered Apartments:", filteredApartments.length);
+      console.log("Filtered Houses:", filteredHouses.length);
+      console.log("Filtered Lands:", filteredLands.length);
     } catch (err) {
       console.error("Error loading properties", err);
       setError("Error loading properties");
     } finally {
+      const end = performance.now();
       setLoading(false);
+      console.log(
+        `Time taken to load properties: ${(end - start) / 1000} seconds`
+      );
     }
   };
 
@@ -161,7 +144,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         error,
         totalProperties,
         fetchProperties,
-        lastApartment, // Add lastApartment to context value
+        lastApartment,
       }}
     >
       {children}

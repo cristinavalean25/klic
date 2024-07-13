@@ -3,11 +3,11 @@ import { getCoordinates } from "./geocode";
 import "../Maps/map.css";
 
 interface MapComponentProps {
-  zona: string; // Numele zonei pentru geocodare
+  address: string; // Adresa completă pentru geocodare
   radius: number; // Raza în metri pentru a desena zona
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ zona, radius }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ address, radius }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [coordinates, setCoordinates] = useState<{
     lat: number;
@@ -16,12 +16,23 @@ const MapComponent: React.FC<MapComponentProps> = ({ zona, radius }) => {
 
   useEffect(() => {
     const fetchCoordinates = async () => {
-      const coords = await getCoordinates(zona);
-      setCoordinates(coords);
+      let fullAddress = address;
+      if (!address.includes("Romania")) {
+        fullAddress = `${address}, Romania`;
+      }
+      console.log(`Fetching coordinates for address: ${fullAddress}`);
+      const coords = await getCoordinates(fullAddress);
+      if (coords) {
+        setCoordinates(coords);
+      } else {
+        console.error(
+          `Failed to fetch coordinates for address: ${fullAddress}`
+        );
+      }
     };
 
     fetchCoordinates();
-  }, [zona]);
+  }, [address]);
 
   useEffect(() => {
     if (window.google && mapRef.current && coordinates) {

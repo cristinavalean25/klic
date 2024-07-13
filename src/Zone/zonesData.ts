@@ -6,6 +6,7 @@ import piatamare from "../Zone/zoneImg/piatamare.jpg"
 import central from "../Zone/zoneImg/central.jpg"
 import mihaiviteazu from "../Images/m.png"
 import cedonia from "../Zone/zoneImg/cedonia.jpg"
+import cedonia2 from "../Zone/zoneImg/cedonia-2.jpg"
 import treistejari from "../Zone/zoneImg/treistejari.jpg"
 import caleadumbravii from "../Zone/zoneImg/caleadumbravii.jpg"
 import caleapoplacii from "../Zone/zoneImg/caleapoplacii.jpg"
@@ -61,11 +62,16 @@ const zonesData: ZoneData[] = [
   {
     id: 5,
     title: "CEDONIA",
-    description: "Cartierul Cedonia din Sibiu, cu un aspect perfect pentru viața de bloc...",
+    description: "Cartierul Cedonia din Sibiu, cu un aspect perfect pentru viața la bloc...",
     imageUrl: cedonia,
-    population: 950,
+    secondaryImageUrl: cedonia2,
+    population: 1.750,
+    address: "Cedonia, Sibiu, Romania",
+    radius: 700 ,
     area: "0.190 km²",
-    priceRange: "115.000 – 1.150.000 euro"
+    priceRange: "115.000 – 1.150.000 euro",
+    titleDescription: "Armonia Urbană între Tradiție și Modernitate​",
+    longDescription: "Cartierul Cedonia, așezat strategic în inima orașului Sibiu, este o zonă rezidențială care exemplifică echilibrul perfect între viața la bloc și cea în case individuale. Cu o comunitate primitoare de aproximativ 1.750 de locuitori și o suprafață de 25,07 kilometri pătrați, acest cartier reprezintă un model ideal de conviețuire urbană, îmbinând cu grație comoditatea vieții moderne cu calitățile unui stil de viață comunitar și familial.​Unul dintre cele mai mari atuuri ale Cartierului Cedonia este proximitatea sa la centrul vibrant al orașului Sibiu. Această localizare privilegiată oferă rezidenților acces ușor și rapid la diverse facilități urbane, inclusiv la instituții de învățământ de top, magazine, restaurante și centre culturale. Acest acces facil la serviciile orașului aduce un plus semnificativ calității vieții locuitorilor săi.​În Cartierul Cedonia, arhitectura este o reflectare a echilibrului între tradiție și modernitate. Clădirile rezidențiale și casele sunt proiectate astfel încât să ofere confort maxim, în timp ce păstrează un sentiment de familiaritate și căldură. Acest amestec între blocuri moderne și case tradiționale creează un mediu armonios și estetic plăcut. Comoditatea și accesibilitatea sunt cuvinte de bază în acest cartier. Datorită amplasării sale, locuitorii beneficiază de o conexiune ușoară cu restul orașului, permițându-le să se bucure de evenimentele și activitățile urbane, fără a compromite liniștea și confortul vieții de cartier.​Stilul de viață comunitar și familial este încurajat în Cedonia. Parcurile și spațiile verzi, precum și zonele de joacă pentru copii, sunt puncte de întâlnire pentru familiile și prietenii care doresc să petreacă timp de calitate împreună. Aceste spații verzi contribuie nu doar la estetica cartierului, ci și la crearea unui mediu sănătos și activ pentru toate vârstele. Prin urmare, Cartierul Cedonia este mai mult decât un simplu loc de rezidență; este o comunitate vibrantă și diversă, care oferă un echilibru perfect între nevoile individuale și cele comunitare. Cu un amestec armonios de case și apartamente, apropierea de centrul orașului, și un puternic simț al comunității, Cedonia este un exemplu remarcabil de urbanism modern, ideal pentru oricine caută un stil de viață confortabil și conectat în inima Sibiului. ​"
   },
   {
     id: 6,

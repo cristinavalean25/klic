@@ -20,8 +20,8 @@
   width: 25%;
   padding: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   background-color: #0B152C;
   top: 25%;
@@ -32,6 +32,7 @@
   font-weight: bold;
   text-transform: uppercase;
   font-family: "SohneBreitfettNormal", sans-serif;
+  color: white;
 }
 
 .zone-subtitle {
@@ -39,6 +40,7 @@
   text-transform: uppercase;
   margin-top: 10px;
   font-family: Sohne Breit, sans-serif;
+  color: white;
 }
 
 .zone-list {

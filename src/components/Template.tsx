@@ -48,6 +48,8 @@ function Template() {
     { label: "CASE", path: "/Case" },
     { label: "COMERCIAL", path: "/comercial" },
     { label: "ANSAMBLURI REZIDENTIALE", path: "/ansambluri" },
+    { label: "EVALUARE", path: "/evaluare" },
+    { label: "ZONE SIBIU", path: "/zone" },
     { label: "CASE LA TARA", path: "/casetara" },
     { label: "TERENURI", path: "/terenuri" },
     { label: "HOTELURI/PENSIUNI", path: "/hoteluri" },
