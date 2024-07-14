@@ -12,6 +12,7 @@ import AgentInfo from "../../Agenti/AgentInfo";
 import MapComponent from "../../Maps/MapComponent";
 import SecondDetailsCase from "./SecondDetailsCase";
 import CaracteristiciCase from "./CaracteristiciCase";
+import Footer from "../../components/Footer";
 
 const CaseDetalii: React.FC = () => {
   const [property, setProperty] = useState<PropertyDetails | null>(null);
@@ -154,6 +155,8 @@ const CaseDetalii: React.FC = () => {
           <MapComponent address={fullAddress} radius={1000} />
         </div>
       )}
+
+      <Footer />
     </>
   );
 };

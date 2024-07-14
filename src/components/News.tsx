@@ -86,7 +86,6 @@ function News() {
           </div>
         </div>
       </div>
-      <p>hello</p>
     </>
   );
 }

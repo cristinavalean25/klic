@@ -1,0 +1,198 @@
+/* Stiluri existente */
+.container-teren {
+    padding: 20px;
+    width: 90%;
+    margin: 0 auto; /* Centers the container */
+    font-family: Sohne Breit, sans-serif;
+}
+
+.lands-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Creates a 2-column grid */
+    gap: 20px;
+}
+
+.land-card {
+    position: relative;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.property-image-teren {
+    position: relative;
+    overflow: hidden; /* Ensures the image fits within the card without overflow */
+    height: 400px; /* Set a larger height for the container */
+    object-fit: cover;
+}
+
+.property-image-teren img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Ensures the image covers the element fully */
+}
+
+.overlay-lista-teren {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center; /* Center text in overlay */
+}
+
+.details-teren {
+    display: none;
+}
+
+.land-card:hover .details-teren {
+    display: block;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0; /* Show at the bottom on hover */
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 2;
+    text-align: center; /* Center text in hover details */
+}
+
+.land-card:hover .overlay-lista-teren {
+    opacity: 0; /* Hide the title overlay when hovering */
+}
+
+.special-container-teren {
+    display: flex;
+    flex-direction: row; /* Ensure the image is on the right */
+    width: 100%;
+    background-color: #001f3f; /* Blue background color */
+    color: white;
+    padding: 3%;
+    box-sizing: border-box;
+    align-items: center;
+    position: relative; /* For the title to overlap the image */
+    height: 600px; /* Increase height for special indexes */
+}
+
+.special-container-details {
+    flex: 1;
+    text-align: left; /* Align text to the left */
+    position: relative;
+}
+
+.special-container-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Background for readability */
+    color: white;
+    font-size: 1.2em;
+    z-index: 2;
+    text-align: center; /* Center title text */
+    padding: 10px;
+}
+
+.special-container-image {
+    flex: 0 0 65%;
+    text-align: center;
+    position: relative; /* Added for positioning */
+    height: auto;
+    margin: auto; /* Center the container */
+}
+
+.special-container-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill; /* Ensures the image covers the element fully */
+}
+
+.extra-info-teren {
+    display: flex;
+    flex-direction: column; /* Stack details vertically */
+    align-items: flex-start; /* Align details to the left */
+    padding-top: 10px; /* Add some space between the details and the title */
+}
+
+.detail-item-teren {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribute space between the details */
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background: #010309; /* Color updated */
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background: #0056b3;
+}
+
+.pagination button:disabled {
+    background: #ddd;
+    cursor: default;
+}
+
+/* Media queries pentru responsive design */
+@media (max-width: 768px) {
+    .lands-grid {
+        grid-template-columns: 1fr; /* Single column layout on small screens */
+    }
+
+    .property-image-teren {
+        height: 300px; /* Smaller height for images on small screens */
+    }
+
+    .special-container-teren {
+        flex-direction: column; /* Stack details and image vertically */
+        height: auto; /* Adjust height for vertical layout */
+    }
+
+    .special-container-image {
+        flex: none;
+        width: 100%;
+        height: 300px; /* Set a fixed height for the image container */
+        text-align: center; /* Center the image */
+    }
+
+    .special-container-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the image covers the element fully */
+    }
+
+    .special-container-details {
+        padding-right: 0;
+        padding-top: 10px; /* Add spacing above details */
+        text-align: center; /* Center text */
+    }
+}
+
+@media (max-width: 480px) {
+    .property-image-teren {
+        height: 200px; /* Smaller height for images on very small screens */
+    }
+
+    .special-container-image {
+        height: 200px; /* Set a smaller fixed height for the image container */
+    }
+}

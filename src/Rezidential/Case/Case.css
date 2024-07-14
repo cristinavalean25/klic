@@ -2,6 +2,7 @@
   padding: 20px;
   width: 90%;
   margin: 0 auto; /* Centers the container */
+  font-family: Sohne Breit, sans-serif;
 }
 
 .houses-grid {
@@ -33,7 +34,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
   padding: 10px;
   box-sizing: border-box;
@@ -50,7 +51,7 @@
   position: absolute;
   bottom: 0; /* Show at the bottom on hover */
   width: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
   padding: 20px;
   box-sizing: border-box;
@@ -96,7 +97,7 @@
   left: 0;
   width: 100%;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   color: white;
   font-size: 1.2em;
   z-index: 2;

@@ -15,6 +15,7 @@ import ZoneDetail from "./Zone/ZoneDetail";
 import Case from "./Rezidential/Case/Case";
 import CaseDetalii from "./Rezidential/Case/CaseDetalii";
 import Evaluare from "./components/Evaluare";
+import Terenuri from "./Nerezidential/Terenuri/Terenuri";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/Case" element={<Case />} />
         <Route path="/house/:id" element={<CaseDetalii />} />
         <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
+        <Route path="/terenuri" element={<Terenuri />} />
         <Route path="/evaluare" element={<Evaluare />} />
         <Route path="ListaAgenti" element={<ListaAgenti />} />
         <Route path="/zone" element={<Zone />} />

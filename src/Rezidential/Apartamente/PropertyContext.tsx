@@ -8,6 +8,7 @@ export type PropertyContextType = {
   apartmentsForSale: PropertyDetails[];
   houses: PropertyDetails[];
   lands: PropertyDetails[];
+  commercialSpaces: PropertyDetails[];
   loading: boolean;
   error: string | null;
   totalProperties: number;
@@ -44,6 +45,9 @@ const fetchPageProperties = async (
   return response.data.data;
 };
 
+const LOCAL_STORAGE_KEY = "propertyData";
+const TIMESTAMP_KEY = "propertyDataTimestamp";
+
 export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
@@ -54,6 +58,9 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   );
   const [houses, setHouses] = useState<PropertyDetails[]>([]);
   const [lands, setLands] = useState<PropertyDetails[]>([]);
+  const [commercialSpaces, setCommercialSpaces] = useState<PropertyDetails[]>(
+    []
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [totalProperties, setTotalProperties] = useState<number>(0);
@@ -99,9 +106,34 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
           property.tip?.toLowerCase() === "teren" && property.devanzare === 1
       );
 
+      const filteredCommercialSpaces = sortedProperties.filter(
+        (property) =>
+          property.tip?.toLowerCase() === "spatiu comercial" &&
+          property.devanzare === 1
+      );
+
       const lastApartment = sortedProperties.find(
         (property) => property.tip?.toLowerCase() === "apartament"
       );
+
+      // Save data to local storage
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify({
+          properties: sortedProperties,
+          apartments: filteredApartments,
+          apartmentsForSale: filteredApartments.filter(
+            (property) => property.devanzare === 1
+          ),
+          houses: filteredHouses,
+          lands: filteredLands,
+          commercialSpaces: filteredCommercialSpaces,
+          lastApartment: lastApartment || null,
+          totalProperties: sortedProperties.length,
+        })
+      );
+      // Save timestamp to local storage
+      localStorage.setItem(TIMESTAMP_KEY, Date.now().toString());
 
       setProperties(sortedProperties);
       setApartments(filteredApartments);
@@ -110,6 +142,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       );
       setHouses(filteredHouses);
       setLands(filteredLands);
+      setCommercialSpaces(filteredCommercialSpaces);
       setLastApartment(lastApartment || null);
 
       console.log("Total Properties:", sortedProperties.length);
@@ -129,7 +162,40 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   useEffect(() => {
-    fetchProperties();
+    const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const storedTimestamp = localStorage.getItem(TIMESTAMP_KEY);
+    const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+
+    if (storedData && storedTimestamp) {
+      const timestamp = parseInt(storedTimestamp, 10);
+      const now = Date.now();
+
+      if (now - timestamp < oneDay) {
+        const {
+          properties,
+          apartments,
+          apartmentsForSale,
+          houses,
+          lands,
+          commercialSpaces,
+          lastApartment,
+          totalProperties,
+        } = JSON.parse(storedData);
+
+        setProperties(properties);
+        setApartments(apartments);
+        setApartmentsForSale(apartmentsForSale);
+        setHouses(houses);
+        setLands(lands);
+        setCommercialSpaces(commercialSpaces);
+        setLastApartment(lastApartment);
+        setTotalProperties(totalProperties);
+      } else {
+        fetchProperties();
+      }
+    } else {
+      fetchProperties();
+    }
   }, []);
 
   return (
@@ -140,6 +206,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         apartmentsForSale,
         houses,
         lands,
+        commercialSpaces,
         loading,
         error,
         totalProperties,

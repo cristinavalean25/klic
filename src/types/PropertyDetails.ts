@@ -60,6 +60,7 @@ export interface PropertyDetails {
   pretfaratva: number;
   comisioncumparator: string;
   images?: { src: string; alt: string }[];
+  imagine_principala?: string;
   top: number;
   pole: number;
   custom1?: string;

@@ -81,7 +81,7 @@ const ListaCase: React.FC<ListaCaseProps> = React.memo(
                               {house.nrcamere} camere
                             </span>
                           </div>
-                          <p>P {house.idnum}</p>
+                          <p>P{house.idnum}</p>
                         </div>
                       </div>
                       <div className="special-container-image">
@@ -135,7 +135,7 @@ const ListaCase: React.FC<ListaCaseProps> = React.memo(
                                 {house.nrcamere} camere
                               </span>
                             </div>
-                            <p>P {house.idnum}</p>
+                            <p>P{house.idnum}</p>
                           </div>
                         </div>
                       </div>

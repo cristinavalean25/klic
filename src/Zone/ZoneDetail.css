@@ -34,6 +34,7 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* Afișează textul pe două rânduri */
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

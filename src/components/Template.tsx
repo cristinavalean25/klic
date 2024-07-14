@@ -46,24 +46,27 @@ function Template() {
   const dropdownItems = [
     { label: "APARTAMENTE", path: "/Apartamente" },
     { label: "CASE", path: "/Case" },
-    { label: "COMERCIAL", path: "/comercial" },
-    { label: "ANSAMBLURI REZIDENTIALE", path: "/ansambluri" },
-    { label: "EVALUARE", path: "/evaluare" },
-    { label: "ZONE SIBIU", path: "/zone" },
-    { label: "CASE LA TARA", path: "/casetara" },
+    { label: "COMERCIALE", path: "/comerciale" },
+    { label: "INDUSTRIALE", path: "/ansambluri" },
     { label: "TERENURI", path: "/terenuri" },
-    { label: "HOTELURI/PENSIUNI", path: "/hoteluri" },
+    { label: "ANSAMBLE NOI", path: "/ansambluri" },
+    { label: "EVALUARE", path: "/evaluare" },
+    { label: "OPEN HOUSE", path: "/ansambluri" },
+    { label: "ZONE SIBIU", path: "/zone" },
   ];
 
   const dropdownItemsRent = [
-    { label: "REZIDENTIAL", path: "/rezidential" },
-    { label: "COMERCIAL", path: "/comercial" },
+    { label: "APARTAMENTE", path: "/Apartamente" },
+    { label: "CASE", path: "/Case" },
+    { label: "COMERCIALE", path: "/Case" },
+    { label: "INDUSTRIALE", path: "/Case" },
+    { label: "TERENURI", path: "/Case" },
   ];
 
   const dropdownItemsSold = [
-    { label: "REZIDENTIAL", path: "/rezidential" },
-    { label: "COMERCIAL", path: "/comercial" },
-    { label: "ANSAMBLURI REZIDENTIALE", path: "/ansambluri" },
+    { label: "ANSAMBLE NOI", path: "/rezidential" },
+    { label: "APARTAMENTE", path: "/comercial" },
+    { label: "CASE", path: "/ansambluri" },
   ];
 
   const dropdownItemsAbout = [
@@ -187,7 +190,7 @@ function Template() {
                       className="nav-link custom-dropdown-menu"
                       style={{ color: "#fff", whiteSpace: "nowrap" }}
                     >
-                      VINDE ACUM
+                      ANSAMBLE NOI
                     </Link>
                   </li>
 
