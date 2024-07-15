@@ -44,7 +44,7 @@ function Navbar() {
   const dropdownItems = [
     { label: "APARTAMENTE", path: "/Apartamente" },
     { label: "CASE", path: "/Case" },
-    { label: "COMERCIALE", path: "/comerciale" },
+    { label: "COMERCIALE", path: "/comercial" },
     { label: "INDUSTRIALE", path: "/ansambluri" },
     { label: "TERENURI", path: "/terenuri" },
     { label: "ANSAMBLE NOI", path: "/ansambluri" },

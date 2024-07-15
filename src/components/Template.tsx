@@ -46,7 +46,7 @@ function Template() {
   const dropdownItems = [
     { label: "APARTAMENTE", path: "/Apartamente" },
     { label: "CASE", path: "/Case" },
-    { label: "COMERCIALE", path: "/comerciale" },
+    { label: "COMERCIALE", path: "/comercial" },
     { label: "INDUSTRIALE", path: "/ansambluri" },
     { label: "TERENURI", path: "/terenuri" },
     { label: "ANSAMBLE NOI", path: "/ansambluri" },
@@ -56,7 +56,7 @@ function Template() {
   ];
 
   const dropdownItemsRent = [
-    { label: "APARTAMENTE", path: "/Apartamente" },
+    { label: "APARTAMENTE", path: "/Apartamente-de-inchiriat" },
     { label: "CASE", path: "/Case" },
     { label: "COMERCIALE", path: "/Case" },
     { label: "INDUSTRIALE", path: "/Case" },

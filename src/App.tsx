@@ -16,6 +16,10 @@ import Case from "./Rezidential/Case/Case";
 import CaseDetalii from "./Rezidential/Case/CaseDetalii";
 import Evaluare from "./components/Evaluare";
 import Terenuri from "./Nerezidential/Terenuri/Terenuri";
+import Comercial from "./Nerezidential/SpatiiComerciale/Comercial";
+import ApartamenteDeInchiriat from "./Rent/ApartamenteDeInchiriat";
+import ApartamenteDeInchiriatDetails from "./Rent/ApartamenteDeInchiriatDetails";
+import TerenuriDetalii from "./Nerezidential/Terenuri/TerenuriDetalii";
 
 const App = () => {
   return (
@@ -24,18 +28,28 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/Template" element={<Template />} />
         <Route path="/WhyKlic" element={<WhyKlic />} />
-        <Route path="/ZoneSibiu" element={<ZoneSibiu />}></Route>
+        <Route path="/ZoneSibiu" element={<ZoneSibiu />} />
         <Route path="/News" element={<News />} />
         <Route path="/Footer" element={<Footer />} />
         <Route path="/Rezidential" element={<Rezidential />} />
         <Route path="/Apartamente" element={<Apartamente />} />
+        <Route
+          path="/Apartamente-de-inchiriat"
+          element={<ApartamenteDeInchiriat />}
+        />
+        <Route
+          path="/apartament/:id"
+          element={<ApartamenteDeInchiriatDetails />}
+        />
         <Route path="/apartament/:id" element={<ApartamenteDetalii />} />
         <Route path="/Case" element={<Case />} />
         <Route path="/house/:id" element={<CaseDetalii />} />
         <Route path="/SpatiiComerciale" element={<SpatiiComerciale />} />
-        <Route path="/terenuri" element={<Terenuri />} />
+        <Route path="/terenuri" element={<Terenuri />} />\
+        <Route path="/teren/:id" element={<TerenuriDetalii />} />
+        <Route path="/comercial" element={<Comercial />} />
         <Route path="/evaluare" element={<Evaluare />} />
-        <Route path="ListaAgenti" element={<ListaAgenti />} />
+        <Route path="/ListaAgenti" element={<ListaAgenti />} />{" "}
         <Route path="/zone" element={<Zone />} />
         <Route path="/zone/:id" element={<ZoneDetail />} />
       </Routes>

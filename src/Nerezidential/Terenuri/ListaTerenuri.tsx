@@ -28,6 +28,13 @@ const ListaTerenuri: React.FC<ListaTerenuriProps> = ({
     [navigate]
   );
 
+  const handleLandClick = useCallback(
+    (idnum: number) => {
+      navigate(`/teren/${idnum}`);
+    },
+    [navigate]
+  );
+
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
   const currentProperties = lands.slice(
@@ -51,6 +58,8 @@ const ListaTerenuri: React.FC<ListaTerenuriProps> = ({
               <div
                 key={`${land.idnum}-${index}`}
                 className={`land-card ${isFullWidth ? "special-index" : ""}`}
+                onClick={() => handleLandClick(land.idnum)}
+                style={{ cursor: "pointer" }} // Add cursor pointer for better UX
               >
                 {isFullWidth ? (
                   <div className="special-container-teren">

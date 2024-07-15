@@ -21,6 +21,7 @@ export interface PropertyDetails {
   suprafatabalcon: number;
   tipimobil: string;
   tiplocuinta: string;
+  tipspatiu?: string;
   pretnegociabil: number;
   tipteren: string;
   clasificareteren: string;
@@ -83,7 +84,7 @@ export interface PropertyDetails {
   orientare: string;
   indice_emisii: string;
   consum_energie_regenerabila: string;
-  tipvanzare: string;
+  tipvanzare: number;
   deinchiriat: number;
   listingType: string;
   agent_info: Agent;
