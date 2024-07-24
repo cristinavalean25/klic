@@ -5,10 +5,11 @@ import ListaApartamente from "./ListaApartamente";
 import "../../CssPages/Apartamente.css";
 import "../../CssPages/ApartamenteDetalii.css";
 import { useNavigate } from "react-router-dom";
-import { usePropertyContext } from "./usePropertyContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { PropertyDetails } from "../../types/PropertyDetails";
+import { usePropertyContext } from "../../context/usePropertyContext";
 
 const Apartamente: React.FC = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Apartamente: React.FC = () => {
   }
 
   const apartments = properties.filter(
-    (property) => property.tiplocuinta === "apartament"
+    (property: PropertyDetails) => property.tiplocuinta === "apartament"
   );
 
   // Sort properties in descending order by ID

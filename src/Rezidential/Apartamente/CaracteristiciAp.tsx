@@ -157,7 +157,8 @@ const CaracteristiciAp: React.FC<Props> = ({ property }) => {
     if (acoperis) dotari.push(`Acoperis: ${acoperis}`);
   }
 
-  const characteristics = [
+  // Caracteristicile generale ale proprietății
+  const generalCharacteristics = [
     { label: "Nr. camere", value: property.nrcamere },
     { label: "Suprafață utilă", value: property.suprafatautila },
     { label: "Etaj", value: property.etaj },
@@ -173,7 +174,27 @@ const CaracteristiciAp: React.FC<Props> = ({ property }) => {
     { label: "An construcție", value: property.anconstructie },
     { label: "An renovare", value: property.anrenovare },
     { label: "Structură", value: property.structurarezistenta },
-  ];
+  ].filter(
+    ({ value }) => value !== undefined && value !== null && value !== ""
+  );
+
+  // Caracteristicile specifice terenului
+  const landCharacteristics = [
+    { label: "Tip teren", value: property.tipteren },
+    { label: "Clasificare teren", value: property.clasificareteren },
+    { label: "Nr. fronturi stradale", value: property.nrfronturistradale },
+    { label: "Front stradal", value: property.frontstradal },
+    { label: "Suprafață teren", value: property.suprafatateren },
+    { label: "Lățime drum acces", value: property.latimedrumacces },
+  ].filter(
+    ({ value }) => value !== undefined && value !== null && value !== ""
+  );
+
+  // Determinăm ce caracteristici să afișăm în funcție de tipul proprietății
+  const characteristics =
+    property.tipimobil === "Teren"
+      ? landCharacteristics
+      : generalCharacteristics;
 
   const otherDetails = dotari.map((item, index) => {
     const [label, value] = item.split(": ");

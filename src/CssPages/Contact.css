@@ -1,0 +1,64 @@
+.contact-container-page {
+    padding: 50px;
+    padding-top: 100px;
+    background-color: #0a0a23; /* Dark background color */
+    color: #fff; /* White text color */
+  }
+  
+  .contact-left {
+    padding: 20px;
+  }
+  
+  .contact-left h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .contact-left p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .contact-left .headquarters,
+  .contact-left .connect {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .social-icons {
+    margin-top: 20px;
+  }
+  
+  .social-icons .svg-inline--fa {
+    font-size: 24px;
+    margin-right: 10px;
+    color: #fff; /* Ensure icons are white */
+  }
+  
+  .contact-right img {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure image covers the area without distortion */
+  }
+  
+  @media (max-width: 768px) {
+    .contact-left,
+    .contact-right {
+      padding: 10px;
+    }
+  
+    .contact-left h1 {
+      font-size: 36px;
+    }
+  
+    .contact-left p {
+      font-size: 16px;
+    }
+  
+    .contact-right img {
+      width: 100%; /* Full width on smaller screens */
+      height: auto;
+    }
+  }
+  

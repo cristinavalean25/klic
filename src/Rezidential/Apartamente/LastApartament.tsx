@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PropertyContext } from "./PropertyContext";
+import { PropertyContext } from "../../context/PropertyContext";
 import "../../CssPages/LastApartament.css";
 
 const LastApartament: React.FC = () => {

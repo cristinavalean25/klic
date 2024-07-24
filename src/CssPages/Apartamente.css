@@ -50,6 +50,7 @@
   padding-right: 20px;
   z-index: 3; /* Ensure it's above the image */
   position: relative; /* Changed to relative */
+  flex-direction: row;
 }
 
 .line {
@@ -74,6 +75,7 @@
 .special-container .details .extra-info {
   font-size: 16px;
   text-transform: uppercase;
+  flex-direction: row;
 }
 
 .special-container .image-container {
@@ -244,23 +246,33 @@
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
+    width: 100%;
+    margin:  0 auto;
   }
 
   .special-index {
-    margin-left: 0; /* Remove negative margin on smaller screens */
-    flex-direction: column;
+    width: 100%; /* Use full width */
+    margin-left: 0; /* Remove negative margin */
+    grid-column: span 2; /* Ensure it spans across all columns */
     height: auto; /* Auto height for smaller screens */
+    margin-bottom: 10%; /* Adjust margin for spacing */
   }
 
   .special-container {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align elements */
     padding: 10px; /* Adjust padding for smaller screens */
+    box-sizing: border-box; /* Ensure padding is included in element's total width and height */
   }
 
   .special-container .details {
-    padding-right: 0;
-    margin-bottom: 10px;
+    width: 100%; /* Full width */
+    padding: 0; /* Remove padding */
+    margin-bottom: 10px; /* Add margin bottom */
+    text-align: center; /* Center align text */
+    flex-direction: row;
+    justify-content: space-between;
+
   }
 
   .special-container .image-container {
@@ -268,5 +280,74 @@
     height: auto; /* Adjust height for smaller screens */
     position: relative;
     bottom: 0; /* Reset bottom for smaller screens */
+  }
+
+  .special-container .image-container {
+    width: 100%; /* Full width */
+    height: auto; /* Auto height */
+    position: relative; /* Reset position */
+    bottom: 0; /* Reset bottom for smaller screens */
+  }
+
+  .special-container .details .title {
+    font-size: 24px; /* Adjust font size */
+    line-height: 1.2; /* Adjust line height */
+  }
+
+  .extra-info {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    grid-template-columns: 1fr;
+    width: 100%;
+    margin:  0 auto;
+  }
+
+
+  .special-index {
+    width: 100%; /* Use full width */
+    margin-left: 0; /* Remove negative margin */
+    grid-column: span 2; /* Ensure it spans across all columns */
+    height: auto; /* Auto height for smaller screens */
+    margin-bottom: 10%; /* Adjust margin for spacing */
+  }
+
+  .special-container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align elements */
+    padding: 10px; /* Adjust padding for smaller screens */
+    box-sizing: border-box; /* Ensure padding is included in element's total width and height */
+  }
+
+  .special-container .details {
+    width: 100%; /* Full width */
+    padding: 0; /* Remove padding */
+    margin-bottom: 10px; /* Add margin bottom */
+    text-align: center; /* Center align text */
+  }
+
+  .special-container .details .title {
+    font-size: 18px; /* Adjust font size */
+    line-height: 1.2; /* Adjust line height */
+  }
+
+  .special-container .image-container {
+    width: 100%; /* Full width */
+    height: auto; /* Auto height */
+    position: relative; /* Reset position */
+    bottom: 0; /* Reset bottom for smaller screens */
+  }
+
+  .extra-info {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
   }
 }

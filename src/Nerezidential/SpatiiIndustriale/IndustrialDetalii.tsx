@@ -4,14 +4,13 @@ import { PropertyDetails } from "../../types/PropertyDetails";
 import { Agent } from "../../types/Agent";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import SecondDetails from "./SecondDetails";
-import "../../CssPages/ApartamenteDetalii.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRulerCombined, faBed } from "@fortawesome/free-solid-svg-icons";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import CaracteristiciAp from "./CaracteristiciAp";
+import CaracteristiciAp from "../../Rezidential/Apartamente/CaracteristiciAp";
 import MapComponent from "../../Maps/MapComponent";
 import Footer from "../../components/Footer";
+import SecondDetails from "../../Rezidential/Apartamente/SecondDetails";
 
 const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
   agent,
@@ -44,12 +43,12 @@ const AgentInfo: React.FC<{ agent: Agent; title: string }> = ({
   </div>
 );
 
-const ApartamenteDetalii: React.FC = () => {
+const IndustrialDetalii: React.FC = () => {
   const [property, setProperty] = useState<PropertyDetails | null>(null);
   const [urianAgent, setUrianAgent] = useState<Agent | null>(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
-  const { id } = useParams();
-  const idnum = id ? parseInt(id) : 0;
+  const { idnum } = useParams<{ idnum: string }>();
+  const id = idnum ? parseInt(idnum) : 0;
   const caracteristiciRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const ApartamenteDetalii: React.FC = () => {
         };
 
         const propertyResponse = await axios.get(
-          `/api/sites/v1/properties/${idnum}`,
+          `/api/sites/v1/properties/${id}`,
           { headers }
         );
         setProperty(propertyResponse.data);
@@ -77,7 +76,7 @@ const ApartamenteDetalii: React.FC = () => {
         );
         setUrianAgent(urianAgentData);
 
-        console.log("Property:", propertyResponse.data); // Verificați datele proprietății
+        console.log("Property:", propertyResponse.data);
         console.log("Urian Agent:", urianAgentData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -85,7 +84,7 @@ const ApartamenteDetalii: React.FC = () => {
     };
 
     fetchPropertyDetails();
-  }, [idnum]);
+  }, [id]);
 
   const descriptionParagraphs = property?.descriere.ro?.split("\n") || [];
 
@@ -147,6 +146,10 @@ const ApartamenteDetalii: React.FC = () => {
         )}
       </div>
 
+      <div className="second-details">
+        <CaracteristiciAp property={property} />
+      </div>
+
       <SecondDetails
         property={property}
         caracteristiciRef={caracteristiciRef}
@@ -184,10 +187,6 @@ const ApartamenteDetalii: React.FC = () => {
         </div>
       </div>
 
-      <div id="caracteristici" ref={caracteristiciRef}>
-        <CaracteristiciAp property={property} />
-      </div>
-
       <div className="map-container">
         {fullAddress ? (
           <MapComponent address={fullAddress} radius={1000} />
@@ -201,4 +200,4 @@ const ApartamenteDetalii: React.FC = () => {
   );
 };
 
-export default ApartamenteDetalii;
+export default IndustrialDetalii;

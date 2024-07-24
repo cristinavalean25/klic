@@ -173,6 +173,7 @@ const CaracteristiciCase: React.FC<Props> = ({ property }) => {
     { label: "An construcție", value: property.anconstructie },
     { label: "An renovare", value: property.anrenovare },
     { label: "Structură", value: property.structurarezistenta },
+    // Add any additional fields you need here
   ];
 
   const otherDetails = dotari.map((item, index) => {
@@ -191,14 +192,17 @@ const CaracteristiciCase: React.FC<Props> = ({ property }) => {
         <div className="details-header"></div>
         <div className="details-grid">
           <h3 style={{ color: "#13205E" }}>Caracteristici</h3>
-          {characteristics.map(({ label, value }) => (
-            <div key={label} className="detail">
-              <span className="label" style={{ color: "#13205E" }}>
-                {label}:
-              </span>
-              <span className="value">{value}</span>
-            </div>
-          ))}
+          {characteristics.map(
+            ({ label, value }) =>
+              value && (
+                <div key={label} className="detail">
+                  <span className="label" style={{ color: "#13205E" }}>
+                    {label}:
+                  </span>
+                  <span className="value">{value}</span>
+                </div>
+              )
+          )}
         </div>
       </div>
 

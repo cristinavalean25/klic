@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PropertyContext } from "../Rezidential/Apartamente/PropertyContext";
+import { PropertyContext } from "../context/PropertyContext";
 import ApartamentDeInchiriatList from "./ApartamentDeInchiriatList"; // Ensure this import is correct
 
 const ApartamenteDeInchiriat: React.FC = () => {

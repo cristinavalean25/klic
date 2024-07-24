@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState, ReactNode } from "react";
 import axios, { AxiosRequestConfig } from "axios";
-import { PropertyDetails } from "../../types/PropertyDetails";
+import { PropertyDetails } from "../types/PropertyDetails";
 
 export type PropertyContextType = {
   properties: PropertyDetails[];
@@ -9,6 +9,7 @@ export type PropertyContextType = {
   houses: PropertyDetails[];
   lands: PropertyDetails[];
   commercialSpaces: PropertyDetails[];
+  industrialSpaces: PropertyDetails[];
   loading: boolean;
   error: string | null;
   totalProperties: number;
@@ -61,6 +62,9 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
   const [commercialSpaces, setCommercialSpaces] = useState<PropertyDetails[]>(
     []
   );
+  const [industrialSpaces, setIndustrialSpaces] = useState<PropertyDetails[]>(
+    []
+  ); // Ensure default empty array
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [totalProperties, setTotalProperties] = useState<number>(0);
@@ -112,6 +116,22 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
           property.devanzare === 1
       );
 
+      const filteredIndustrialSpaces = sortedProperties.filter(
+        (property) =>
+          property.tip?.toLowerCase() === "spatiu industrial" &&
+          property.devanzare === 1
+      );
+
+      console.log(
+        "Filtered Commercial Spaces:",
+        filteredCommercialSpaces.length
+      );
+
+      console.log(
+        "Filtered Industrial Spaces:",
+        filteredIndustrialSpaces.length
+      );
+
       const lastApartment = sortedProperties.find(
         (property) => property.tip?.toLowerCase() === "apartament"
       );
@@ -128,6 +148,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
           houses: filteredHouses,
           lands: filteredLands,
           commercialSpaces: filteredCommercialSpaces,
+          industrialSpaces: filteredIndustrialSpaces,
           lastApartment: lastApartment || null,
           totalProperties: sortedProperties.length,
         })
@@ -143,6 +164,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
       setHouses(filteredHouses);
       setLands(filteredLands);
       setCommercialSpaces(filteredCommercialSpaces);
+      setIndustrialSpaces(filteredIndustrialSpaces);
       setLastApartment(lastApartment || null);
 
       console.log("Total Properties:", sortedProperties.length);
@@ -178,6 +200,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
           houses,
           lands,
           commercialSpaces,
+          industrialSpaces,
           lastApartment,
           totalProperties,
         } = JSON.parse(storedData);
@@ -188,6 +211,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         setHouses(houses);
         setLands(lands);
         setCommercialSpaces(commercialSpaces);
+        setIndustrialSpaces(industrialSpaces);
         setLastApartment(lastApartment);
         setTotalProperties(totalProperties);
       } else {
@@ -207,6 +231,7 @@ export const PropertyProvider: React.FC<{ children: ReactNode }> = ({
         houses,
         lands,
         commercialSpaces,
+        industrialSpaces, // Add industrial spaces to context provider
         loading,
         error,
         totalProperties,

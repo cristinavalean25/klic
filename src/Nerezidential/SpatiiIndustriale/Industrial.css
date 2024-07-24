@@ -1,18 +1,18 @@
-/* General container for the commercial properties */
-.container-comercial {
+/* General container for the industrial properties */
+.container-industrial {
     padding: 20px;
     width: 90%;
     margin: 0 auto;
     font-family: Sohne Breit, sans-serif;
   }
   
-  .comercial-grid {
+  .industrial-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   
-  .comercial-card {
+  .industrial-card {
     position: relative;
     margin-bottom: 20px;
     cursor: pointer;
@@ -21,20 +21,20 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .property-image-comercial {
+  .property-image-industrial {
     position: relative;
     overflow: hidden;
     height: 400px;
     object-fit: cover;
   }
   
-  .property-image-comercial img {
+  .property-image-industrial img {
     width: 100%;
     height: 100%;
     object-fit: fill;
   }
   
-  .overlay-lista-comercial {
+  .overlay-lista-industrial {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -46,7 +46,7 @@
     transition: opacity 0.3s ease;
   }
   
-  .details-comercial {
+  .details-industrial {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -63,15 +63,15 @@
     transition: opacity 0.3s ease;
   }
   
-  .comercial-card:hover .details-comercial {
+  .industrial-card:hover .details-industrial {
     opacity: 1;
   }
   
-  .comercial-card:hover .overlay-lista-comercial {
+  .industrial-card:hover .overlay-lista-industrial {
     opacity: 0;
   }
   
-  .special-container-comercial {
+  .special-container-industrial {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -117,14 +117,14 @@
     object-fit: fill;
   }
   
-  .extra-info-comercial {
+  .extra-info-industrial {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding-top: 10px;
   }
   
-  .detail-item-comercial {
+  .detail-item-industrial {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -157,15 +157,15 @@
   
   /* Media queries for responsive design */
   @media (max-width: 768px) {
-    .comercial-grid {
+    .industrial-grid {
       grid-template-columns: 1fr;
     }
   
-    .property-image-comercial {
+    .property-image-industrial {
       height: 300px;
     }
   
-    .special-container-comercial {
+    .special-container-industrial {
       flex-direction: column;
       height: auto;
     }
@@ -191,7 +191,7 @@
   }
   
   @media (max-width: 480px) {
-    .property-image-comercial {
+    .property-image-industrial {
       height: 200px;
     }
   

@@ -3,18 +3,18 @@ import {
   PropertyContext,
   PropertyContextType,
 } from "../../context/PropertyContext";
-import ListaComerciale from "./ListaComerciale";
+import ListaIndustriale from "./ListaIndustriale";
 
-const Comercial: React.FC = () => {
-  const { commercialSpaces, fetchProperties, loading, error } = useContext(
+const Industrial: React.FC = () => {
+  const { industrialSpaces, fetchProperties, loading, error } = useContext(
     PropertyContext
   ) as PropertyContextType;
 
   useEffect(() => {
-    if (!commercialSpaces.length) {
+    if (!industrialSpaces.length) {
       fetchProperties();
     }
-  }, [commercialSpaces, fetchProperties]);
+  }, [industrialSpaces, fetchProperties]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -26,12 +26,12 @@ const Comercial: React.FC = () => {
 
   return (
     <div>
-      <ListaComerciale
-        commercialSpaces={commercialSpaces}
+      <ListaIndustriale
+        industrialSpaces={industrialSpaces}
         propertiesPerPage={24}
       />
     </div>
   );
 };
 
-export default Comercial;
+export default Industrial;

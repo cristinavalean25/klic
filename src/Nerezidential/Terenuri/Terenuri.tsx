@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PropertyContext } from "../../Rezidential/Apartamente/PropertyContext";
+import { PropertyContext } from "../../context/PropertyContext";
 import ListaTerenuri from "./ListaTerenuri";
 import "../Terenuri/ListaTerenuri.css";
 

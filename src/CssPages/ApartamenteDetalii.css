@@ -24,6 +24,17 @@
   object-fit: cover;
 }
 
+.overlay-lista-ap-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Ensure the text is at the bottom */
+}
+
 .overlay-lista-ap {
   position: absolute;
   top: 0;
@@ -33,6 +44,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end; /* Ensure the text is at the bottom */
+  background-color: rgba(38, 46, 68, 0.6);
 }
 
 .property-image:hover .overlay-lista-ap {
@@ -62,6 +74,22 @@
   justify-content: space-between;
   width: 100%;
   padding: 10px;
+  flex-direction: row; /* Ensure items stack vertically */
+  align-items: center; /* Center align items */
+}
+
+/* Styles for icons */
+.icon-details {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.icon-details svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* Other styles for apDetails, overlays, and additional properties */
@@ -78,7 +106,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(38, 46, 68, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -233,10 +261,8 @@
 
 .descriere-proprietate {
   width: 100%;
-  font-size: 17px;
   display: flex;
   flex-direction: row;
-  align-items: stretch;
   justify-content: space-between;
   gap: 2rem;
 }
@@ -310,233 +336,86 @@
 
 /* Responsive adjustments for medium screens */
 @media (max-width: 1024px) {
-  .prop-details {
-    width: 80%;
-    left: 10%;
-    top: 20%;
-    padding: 10px;
+  .container {
+    grid-template-columns: 1fr;
   }
 
-  .title-property {
-    font-size: 30px;
-    line-height: 40px;
-    margin-bottom: 20px;
+  .special-index {
+    width: 100%; /* Use full width */
+    margin-left: 0; /* Remove negative margin */
+    grid-column: span 2; /* Ensure it spans across all columns */
+    height: auto; /* Auto height for smaller screens */
+    margin-bottom: 10%; /* Adjust margin for spacing */
   }
 
-  .title-property,
-  .category-details,
-  .additional-details {
-    text-align: left;
+  .special-container {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center align elements */
+    padding: 10px; /* Adjust padding for smaller screens */
+    box-sizing: border-box; /* Ensure padding is included in element's total width and height */
   }
 
-  .category-details {
-    font-size: 12px;
+  .special-container .details {
+    width: 100%; /* Full width */
+    padding: 0; /* Remove padding */
+    margin-bottom: 10px; /* Add margin bottom */
+    text-align: center; /* Center align text */
   }
 
-  .imageContainerApDetails {
+  .special-container .image-container {
     width: 100%;
-    height: auto;
+    height: auto; /* Adjust height for smaller screens */
+    position: relative;
+    bottom: 0; /* Reset bottom for smaller screens */
   }
 
-  .ap-det-images {
-    height: auto;
-    object-fit: cover;
-  }
-
-  .second-details {
-    margin-top: 1rem;
-  }
-
-  .property-title {
-    font-size: 2rem;
-  }
-
-  .property-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .action-buttons {
-    width: 90%;
-    margin: 0;
-  }
-
-  .actions-div {
-    width: 90%;
-    margin-top: 1rem;
-  }
-
-  .line-gallery {
-    width: 50%;
-  }
-
-  .descriere-proprietate {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    padding: 0 1rem;
-  }
-
-  .container-gol {
-    display: none;
-  }
-
-  .descriere-text {
-    width: 100%;
-  }
-
-  .det-agent {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .det-agent > div {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .poza-agent {
-    width: 150px;
-    height: auto;
-  }
-
-  .map-container {
-    width: 100%;
+  .special-container .details .title {
+    font-size: 24px; /* Adjust font size */
+    line-height: 1.2; /* Adjust line height */
   }
 }
 
-/* Responsive adjustments for small screens */
 @media (max-width: 768px) {
-  .prop-details {
-    width: 90%;
-    left: 5%;
-    top: 15%;
+  .container {
+    grid-template-columns: 1fr;
   }
 
-  .title-property {
-    font-size: 24px;
-    line-height: 32px;
-    margin-bottom: 16px;
-  }
-
-  .category-details {
-    font-size: 10px;
-    padding: 5px 7px;
-  }
-
-  .additional-details {
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 0.5rem;
-  }
-
-  .second-details {
-    padding: 0.5rem;
-  }
-
-  .property-title {
-    font-size: 1.5rem;
-  }
-
-  .property-actions {
-    flex-direction: column;
-  }
-
-  .action-buttons,
-  .actions-div {
+  .property-image {
+    height: 300px; /* Smaller height for images on small screens */
     width: 100%;
   }
 
-  .line-gallery {
+  .special-container {
+    flex-direction: column; /* Stack details and image vertically */
+    height: auto; /* Adjust height for vertical layout */
+  }
+
+  .special-container-image {
+    flex: none;
     width: 100%;
-    height: 2px;
+    height: 300px; /* Set a fixed height for the image container */
+    text-align: center; /* Center the image */
   }
 
-  .descriere-proprietate {
+  .special-container-image img {
     width: 100%;
-    padding: 0 0.5rem;
+    height: 250px;
+    object-fit: cover; /* Ensure the image covers the element fully */
   }
 
-  .descriere-text {
-    padding-top: 1%;
-  }
-
-  .det-agent {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .det-agent > div {
-    width: 100%;
-  }
-
-  .poza-agent {
-    width: 120px;
-    height: auto;
-  }
-
-  .map-container {
-    width: 100%;
-    padding: 0 0.5rem;
+  .special-container-details {
+    padding-right: 0;
+    padding-top: 10px; /* Add spacing above details */
+    text-align: center; /* Center text */
   }
 }
 
-/* Responsive adjustments for extra small screens */
 @media (max-width: 480px) {
-  .prop-details {
-    top: 10%;
+  .property-image {
+    height: 200px; /* Smaller height for images on very small screens */
   }
 
-  .title-property {
-    font-size: 20px;
-    line-height: 28px;
-    margin-bottom: 14px;
-  }
-
-  .category-details {
-    font-size: 9px;
-    padding: 4px 6px;
-  }
-
-  .additional-details {
-    gap: 0.5rem;
-  }
-
-  .action-buttons,
-  .actions-div {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  .line-gallery {
-    width: 100%;
-    height: 1px;
-  }
-
-  .descriere-proprietate {
-    width: 100%;
-    gap: 0.5rem;
-    padding: 0 0.25rem;
-  }
-
-  .descriere-text {
-    padding-top: 0.5%;
-  }
-
-  .det-agent {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .poza-agent {
-    width: 100px;
-    height: auto;
-  }
-
-  .map-container {
-    width: 100%;
-    padding: 0;
+  .special-container-image {
+    height: 200px; /* Set a smaller fixed height for the image container */
   }
 }

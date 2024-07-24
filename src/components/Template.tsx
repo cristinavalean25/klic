@@ -47,7 +47,7 @@ function Template() {
     { label: "APARTAMENTE", path: "/Apartamente" },
     { label: "CASE", path: "/Case" },
     { label: "COMERCIALE", path: "/comercial" },
-    { label: "INDUSTRIALE", path: "/ansambluri" },
+    { label: "INDUSTRIALE", path: "/Industrial" },
     { label: "TERENURI", path: "/terenuri" },
     { label: "ANSAMBLE NOI", path: "/ansambluri" },
     { label: "EVALUARE", path: "/evaluare" },

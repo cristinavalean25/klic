@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PropertyContext } from "../Apartamente/PropertyContext";
+import { PropertyContext } from "../../context/PropertyContext";
 import ListaCase from "./ListaCase";
 
 const propertiesPerPage = 24;
