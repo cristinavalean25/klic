@@ -6,7 +6,7 @@ import App from "./App";
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import { PropertyProvider } from "./context/PropertyContext";
+import { PropertyProvider } from "./components/context/PropertyContext";
 
 const container = document.getElementById("root");
 

@@ -6,22 +6,22 @@ import WhyKlic from "./components/WhyKlic";
 import ZoneSibiu from "./components/ZoneSibiu";
 import News from "./components/News";
 import Footer from "./components/Footer";
-import Apartamente from "./Rezidential/Apartamente/Apartamente";
-import Rezidential from "./Rezidential/Rezidential";
-import ApartamenteDetalii from "./Rezidential/Apartamente/ApartamenteDetalii";
-import ListaAgenti from "./Agenti/ListaAgenti";
+import Apartamente from "./components/Rezidential/Apartamente/Apartamente";
+import Rezidential from "./components/Rezidential/Rezidential";
+import ApartamenteDetalii from "./components/Rezidential/Apartamente/ApartamenteDetalii";
+import ListaAgenti from "./components/Agenti/ListaAgenti";
 import Zone from "./Zone/Zone";
 import ZoneDetail from "./Zone/ZoneDetail";
-import Case from "./Rezidential/Case/Case";
-import CaseDetalii from "./Rezidential/Case/CaseDetalii";
+import Case from "./components/Rezidential/Case/Case";
+import CaseDetalii from "./components/Rezidential/Case/CaseDetalii";
 import Evaluare from "./components/Evaluare";
-import Terenuri from "./Nerezidential/Terenuri/Terenuri";
-import Comercial from "./Nerezidential/SpatiiComerciale/Comercial";
-import ApartamenteDeInchiriat from "./Rent/ApartamenteDeInchiriat";
-import ApartamenteDeInchiriatDetails from "./Rent/ApartamenteDeInchiriatDetails";
-import TerenuriDetalii from "./Nerezidential/Terenuri/TerenuriDetalii";
-import ComercialDetalii from "./Nerezidential/SpatiiComerciale/ComercialDetalii";
-import Industrial from "./Nerezidential/SpatiiIndustriale/Industrial";
+import Terenuri from "./components/Nerezidential/Terenuri/Terenuri";
+import Comercial from "./components/Nerezidential/SpatiiComerciale/Comercial";
+import TerenuriDetalii from "./components/Nerezidential/Terenuri/TerenuriDetalii";
+import ComercialDetalii from "./components/Nerezidential/SpatiiComerciale/ComercialDetalii";
+import Industrial from "./components/Nerezidential/SpatiiIndustriale/Industrial";
+import ApartamenteDeInchiriat from "./components/Rent/ApartamenteDeInchiriat";
+import ApartamenteDeInchiriatDetails from "./components/Rent/ApartamenteDeInchiriatDetails";
 
 const App = () => {
   return (
