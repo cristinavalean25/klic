@@ -99,8 +99,9 @@ function Rezidential() {
         const lastCasaVilaProperties = allProperties
           .filter(
             (property) =>
-              property.tip.toLowerCase().includes("casa") ||
-              property.tip.toLowerCase().includes("vila")
+              property.tip &&
+              (property.tip.toLowerCase().includes("casa") ||
+                property.tip.toLowerCase().includes("vila"))
           )
           .slice(-9);
 

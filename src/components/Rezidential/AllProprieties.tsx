@@ -3,10 +3,10 @@ import axios from "axios";
 import { PropertyDetails } from "../../types/PropertyDetails";
 
 function AllProprieties() {
-  const [properties, setProperties] = useState<PropertyDetails[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
-  const pageSize = 25; // Numărul de apartamente pe pagină în interfața de utilizator
+  const [properties, setProperties] = useState<PropertyDetails[]>([]); // Lista proprietăților
+  const [currentPage, setCurrentPage] = useState(1); // Pagina curentă
+  const [lastPage, setLastPage] = useState(1); // Ultima pagină disponibilă
+  const pageSize = 25; // Numărul de proprietăți per pagină
 
   const fetchAllData = async (page: number) => {
     try {
@@ -21,10 +21,10 @@ function AllProprieties() {
       };
 
       const params = {
-        status: "for_sale", // Doar apartamentele de vânzare
+        status: "for_sale",
         tipvanzare: "apartament",
         page: page,
-        per_page: pageSize, // Numărul fix de apartamente pe pagină
+        per_page: pageSize,
       };
 
       const response = await axios.get("/api/sites/v1/properties", {
@@ -34,9 +34,8 @@ function AllProprieties() {
 
       console.log("Numărul total de apartamente:", response.data.total);
 
-      setProperties(response.data.data);
-      setCurrentPage(response.data.current_page);
-      setLastPage(response.data.last_page);
+      setProperties(response.data.data); // Setează lista de proprietăți
+      setLastPage(response.data.last_page); // Setează ultima pagină
 
       console.timeEnd("Fetching data");
     } catch (error) {
@@ -44,15 +43,50 @@ function AllProprieties() {
     }
   };
 
-  const onPageChange = (page: number) => {
-    fetchAllData(page);
+  useEffect(() => {
+    fetchAllData(currentPage); // Încarcă datele pentru pagina curentă
+  }, [currentPage]);
+
+  const handleNextPage = () => {
+    if (currentPage < lastPage) {
+      setCurrentPage(currentPage + 1); // Trecerea la pagina următoare
+    }
   };
 
-  useEffect(() => {
-    fetchAllData(currentPage);
-  }, []);
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1); // Revenirea la pagina anterioară
+    }
+  };
 
-  return <div>AllProprieties</div>;
+  return (
+    <div>
+      <h1>All Properties</h1>
+
+      {/* Afișarea listei de proprietăți */}
+      <ul>
+        {properties.map((property, index) => (
+          <li key={index}>
+            {property.titlu?.ro || "No Title"} - {property.pretvanzare || "N/A"}{" "}
+            EUR
+          </li>
+        ))}
+      </ul>
+
+      {/* Navigare între pagini */}
+      <div>
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Pagina Anterioară
+        </button>
+        <span>
+          Pagina {currentPage} din {lastPage}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === lastPage}>
+          Pagina Următoare
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default AllProprieties;
